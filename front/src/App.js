@@ -1,10 +1,10 @@
 import "./App.css";
-// import MaterialUi from "./MaterialUi";
 import Footer from './shared/components/Navigation/Footer'
+import Header from "./shared/components/Navigation/Header";
 
 function App() {
   return <div className="App">
-    {/* <MaterialUi/> */}
+    <Header/>
     <Footer/>
   </div>;
 }
