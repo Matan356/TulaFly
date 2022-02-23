@@ -4,12 +4,14 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 
 const usersRoutes = require("./routes/users-routes");
+const vacationsRoutes = require("./routes/vacations-routes");
 
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/users',usersRoutes);
+app.use('/vacations',vacationsRoutes);
 
 mongoose
   .connect(
