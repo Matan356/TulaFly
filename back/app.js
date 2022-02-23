@@ -3,10 +3,14 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 
-const app = express();
+const usersRoutes = require("./routes/users-routes");
 
+const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+
+app.use('/users',usersRoutes);
+
 mongoose
   .connect(
     `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.qk4ej.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
