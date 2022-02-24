@@ -12,6 +12,4 @@ const vacationSchema = new Schema({
   price: { type: String, required: true },
 });
 
-vacationSchema.plugin(uniqueValidator);
-
 module.exports = mongoose.model("Vacation", vacationSchema);

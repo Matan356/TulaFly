@@ -19,16 +19,17 @@ router.post(
   vacationControllers.createVacation
 );
 
-// router.patch(
-//   "/updateVacation",
-//   [
-//     check("departDate").not().isEmpty(),
-//     check("returnDate").not().isEmpty(),
-//     check("price").not().isEmpty(),
-//   ],
-//   vacationControllers.updateVacation
-// );
+router.patch(
+  "/:vid",
+  [
+    check("description").not().isEmpty(),
+    check("departDate").not().isEmpty(),
+    check("returnDate").not().isEmpty(),
+    check("price").not().isEmpty(),
+  ],
+  vacationControllers.updateVacation
+);
 
-// router.delete("/:pid", vacationControllers.deleteVacation);
+router.delete("/:vid", vacationControllers.deleteVacation);
 
 module.exports = router;
