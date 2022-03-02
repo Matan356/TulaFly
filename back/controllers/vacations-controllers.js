@@ -1,15 +1,13 @@
-const { json } = require("body-parser");
 const { validationResult } = require("express-validator");
 const mongoose = require("mongoose");
 
 const HttpError = require("../models/http-error");
 const Vacation = require("../models/vacation");
+const User = require("../models/user");
+const user = require("../models/user");
 
 const createVacation = async (req, res, next) => {
-  console.log(req.body);
-
   const errors = validationResult(req);
-  console.log(errors);
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
@@ -27,6 +25,7 @@ const createVacation = async (req, res, next) => {
     price,
     image,
   });
+
   try {
     await createdVacation.save();
     console.log(req.body);
@@ -45,10 +44,9 @@ const getVacations = async (req, res, next) => {
   let existVacations;
   try {
     existVacations = await Vacation.find();
-    console.log(existVacations);
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not find a vacation.",
+      "Something went wrong, could not find a vacations.",
       500
     );
     return next(error);
@@ -58,7 +56,6 @@ const getVacations = async (req, res, next) => {
 
 const updateVacation = async (req, res, next) => {
   const errors = validationResult(req);
-  console.log("errors:" + JSON.stringify(errors));
   if (!errors.isEmpty()) {
     return next(
       new HttpError("Invalid inputs passed, please check your data.", 422)
@@ -69,9 +66,7 @@ const updateVacation = async (req, res, next) => {
   const vacationId = req.params.vid;
   let vacation;
   try {
-    console.log("req.body:" + JSON.stringify(req.body));
     vacation = await Vacation.findById(vacationId);
-    console.log("vacation:" + vacation);
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not update vacation.",
@@ -84,7 +79,6 @@ const updateVacation = async (req, res, next) => {
   vacation.departDate = departDate;
   vacation.returnDate = returnDate;
   vacation.price = price;
-  console.log("vacation:" + vacation);
 
   try {
     await vacation.save();
@@ -101,12 +95,21 @@ const updateVacation = async (req, res, next) => {
 
 const deleteVacation = async (req, res, next) => {
   const vacationId = req.params.vid;
-  console.log("vacationId:" + vacationId);
 
+  let updatedUser;
   let vacation;
+  let users;
   try {
+    users = await User.find({ vacations: vacationId });
+    console.log("users :" + users);
     vacation = await Vacation.findById(vacationId);
-    console.log("vacation:" + vacation);
+    updatedUser = users.map(async(x) =>
+    await  User.findByIdAndUpdate(
+        x.id,
+        { $pull: { vacations: vacationId } },
+        { new: true }
+      )
+    );
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not delete vacation.",
@@ -116,7 +119,7 @@ const deleteVacation = async (req, res, next) => {
   }
 
   if (!vacation) {
-    const error = new HttpError("Could not find vacation for this id.", 404);
+    const error = new HttpError("Could not find vacation.", 404);
     return next(error);
   }
 
@@ -132,6 +135,88 @@ const deleteVacation = async (req, res, next) => {
 
   res.status(200).json({ message: "Deleted vacation." });
 };
+
+const addVacationToUser = async (req, res, next) => {
+  const vacationId = req.params.vid;
+  const userId = req.params.uid;
+
+  let existVacation = await Vacation.findById(vacationId);
+  let existUser = await User.findById(userId);
+
+  const userVacations = existUser.vacations.find((x) => x == existVacation.id);
+
+  if (userVacations == vacationId) {
+    const error = new HttpError(
+      "Could not follow for this vacation, you are already following.",
+      500
+    );
+    return next(error);
+  }
+  try {
+    existUser.vacations.push(existVacation);
+    await existUser.save();
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not follow to this vacation.",
+      500
+    );
+    return next(error);
+  }
+  res.status(200).json({ existUser });
+};
+
+const deleteVacationFromUser = async (req, res, next) => {
+  const vacationId = req.params.vid;
+  const userId = req.params.uid;
+
+  // let existVacation = await Vacation.findById(vacationId);
+  let existUser = await User.findById(userId);
+
+  const userVacations = existUser.vacations.find((x) => x == vacationId);
+  console.log("userVacations :" + userVacations);
+  if (!userVacations) {
+    const error = new HttpError(
+      "Could not follow for this vacation, you are already following.",
+      500
+    );
+    return next(error);
+  }
+  try {
+    updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pull: { vacations: vacationId } },
+      { new: true }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not unfollow to this vacation.",
+      500
+    );
+    return next(error);
+  }
+  res.status(200).json({ updatedUser });
+};
+
+const getVacationsOfUser = async (req, res, next) => {
+  const userId = req.params.uid;
+  let userVacations;
+  let existUser;
+  try {
+    existUser = await User.findById(userId);
+    userVacations = existUser.vacations;
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not find a vacations.",
+      500
+    );
+    return next(error);
+  }
+  res.status(200).json({ userVacations });
+};
+
+exports.getVacationsOfUser = getVacationsOfUser;
+exports.deleteVacationFromUser = deleteVacationFromUser;
+exports.addVacationToUser = addVacationToUser;
 exports.getVacations = getVacations;
 exports.createVacation = createVacation;
 exports.updateVacation = updateVacation;

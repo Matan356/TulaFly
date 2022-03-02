@@ -41,11 +41,13 @@ const signup = async (req, res, next) => {
     await createdUser.save();
   } catch (err) {
     const error = new HttpError(
-      "Signing up failed, please try again later.",
+      "This user exists, you will not be able to register.",
       500
     );
     return next(error);
   }
+  res.json({ createdUser });
+
 };
 
 const login = async (req, res, next) => {
@@ -55,7 +57,6 @@ const login = async (req, res, next) => {
 
   try {
     existingUser = await User.findOne({ email: email });
-    console.log("logged in");
   } catch (err) {
     const error = new HttpError(
       "Logging in failed, please try again later.",
@@ -71,6 +72,8 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
+  res.json({massage:'logged in'});
+
 };
 exports.signup = signup;
 exports.getUsers = getUsers;
