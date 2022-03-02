@@ -4,7 +4,7 @@ const router = express.Router();
 
 const vacationControllers = require("../controllers/vacations-controllers");
 
-router.get("/", vacationControllers.getVacations); //check
+router.get("/", vacationControllers.getVacations); 
 
 router.post(
   "/",
@@ -16,7 +16,7 @@ router.post(
     check("returnDate").not().isEmpty(),
     check("price").not().isEmpty(),
   ],
-  vacationControllers.createVacation //check
+  vacationControllers.createVacation 
 );
 
 router.patch(
@@ -27,14 +27,14 @@ router.patch(
     check("returnDate").not().isEmpty(),
     check("price").not().isEmpty(),
   ],
-  vacationControllers.updateVacation //check
+  vacationControllers.updateVacation 
 );
-router.delete("/:vid", vacationControllers.deleteVacation);  //check
+router.delete("/:vid", vacationControllers.deleteVacation);  
 
-router.get("/:uid", vacationControllers.getVacationsOfUser); //check
+router.get("/:uid", vacationControllers.getVacationsOfUser); 
 
-router.patch("/:uid/:vid", vacationControllers.addVacationToUser); //check
+router.patch("/:uid/:vid", vacationControllers.addVacationToUser); 
 
-router.delete("/:uid/:vid", vacationControllers.deleteVacationFromUser);  //check
+router.delete("/:uid/:vid", vacationControllers.deleteVacationFromUser);  
 
 module.exports = router;

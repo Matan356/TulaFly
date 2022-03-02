@@ -28,7 +28,6 @@ const createVacation = async (req, res, next) => {
 
   try {
     await createdVacation.save();
-    console.log(req.body);
   } catch (err) {
     const error = new HttpError(
       "Creating Vacation failed, please try again.",
@@ -103,12 +102,13 @@ const deleteVacation = async (req, res, next) => {
     users = await User.find({ vacations: vacationId });
     console.log("users :" + users);
     vacation = await Vacation.findById(vacationId);
-    updatedUser = users.map(async(x) =>
-    await  User.findByIdAndUpdate(
-        x.id,
-        { $pull: { vacations: vacationId } },
-        { new: true }
-      )
+    updatedUser = users.map(
+      async (x) =>
+        await User.findByIdAndUpdate(
+          x.id,
+          { $pull: { vacations: vacationId } },
+          { new: true }
+        )
     );
   } catch (err) {
     const error = new HttpError(
@@ -168,12 +168,9 @@ const addVacationToUser = async (req, res, next) => {
 const deleteVacationFromUser = async (req, res, next) => {
   const vacationId = req.params.vid;
   const userId = req.params.uid;
-
-  // let existVacation = await Vacation.findById(vacationId);
   let existUser = await User.findById(userId);
-
   const userVacations = existUser.vacations.find((x) => x == vacationId);
-  console.log("userVacations :" + userVacations);
+
   if (!userVacations) {
     const error = new HttpError(
       "Could not follow for this vacation, you are already following.",
