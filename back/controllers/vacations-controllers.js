@@ -100,7 +100,6 @@ const deleteVacation = async (req, res, next) => {
   let users;
   try {
     users = await User.find({ vacations: vacationId });
-    console.log("users :" + users);
     vacation = await Vacation.findById(vacationId);
     updatedUser = users.map(
       async (x) =>

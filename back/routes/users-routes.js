@@ -2,10 +2,10 @@ const express = require("express");
 const { check } = require("express-validator");
 
 const usersControllers = require("../controllers/users-controllers");
-
+const vacationControllers = require("../controllers/vacations-controllers");
 const router = express.Router();
 
-router.get("/", usersControllers.getUsers);
+router.get("/", vacationControllers.getVacations); 
 
 router.post(
   "/signup",
@@ -18,6 +18,7 @@ router.post(
   ],
   usersControllers.signup
 );
+
 router.post("/login", usersControllers.login);
 
 module.exports = router;
