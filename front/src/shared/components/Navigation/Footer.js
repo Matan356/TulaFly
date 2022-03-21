@@ -1,26 +1,21 @@
 import React from "react";
-import GitHubIcon from "@material-ui/icons/GitHub";
-import LinkedInIcon from "@material-ui/icons/LinkedIn";
-import { IconButton,AppBar, Toolbar,CssBaseline} from "@material-ui/core";
-import useStyles from "./nav-styles";
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import HeaderBackground from '../../../assets/images/sky-clouds-rain.jpg'
 
-
-export default function BottomAppBar() {
-  const classes = useStyles();
-
+const Footer = (props) => {
   return (
-    <>
-      <CssBaseline />
-      <AppBar position="fixed" color="primary" className={classes.appBar}>
-        <Toolbar >
-          <IconButton href="https://github.com/Matan356" >
-            <GitHubIcon />
-          </IconButton>
-          <IconButton href="https://www.linkedin.com/in/matan-elgrabli/">
-            <LinkedInIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
-    </>
+    <div>
+      <React.Fragment>
+        <AppBar
+          position="fixed"
+          sx={{ top: "auto", bottom: 0 ,backgroundImage:`url(${HeaderBackground})`}}
+        >
+          <Toolbar>{props.children}</Toolbar>
+        </AppBar>
+      </React.Fragment>
+    </div>
   );
-}
+};
+
+export default Footer;
