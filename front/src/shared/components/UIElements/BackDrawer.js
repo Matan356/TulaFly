@@ -46,7 +46,7 @@ const BackDrawer = (props) => {
                 textDecoration: "none",
                 color:'black'
 
-              }} to='/signup'><ListItemText primary="SIGN UP" inset /></Link>
+              }} to='/auth'><ListItemText primary="SIGN UP" inset /></Link>
             </ListItemButton>
           </ListItem>{" "}
           <ListItem disablePadding>
@@ -73,7 +73,7 @@ const BackDrawer = (props) => {
             sx={{
               color: "white",
               background: "black",
-              ml: "3rem",
+              ml: "3.7rem",
               marginTop: "1rem",
             }}
             variant="contained"

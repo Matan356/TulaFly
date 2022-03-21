@@ -5,8 +5,7 @@ import HeaderBackground from '../../../assets/images/sky-clouds-rain.jpg'
 
 const Footer = (props) => {
   return (
-    <div>
-      <React.Fragment>
+      <React.Fragment >
         <AppBar
           position="fixed"
           sx={{ top: "auto", bottom: 0 ,backgroundImage:`url(${HeaderBackground})`}}
@@ -14,7 +13,6 @@ const Footer = (props) => {
           <Toolbar>{props.children}</Toolbar>
         </AppBar>
       </React.Fragment>
-    </div>
   );
 };
 

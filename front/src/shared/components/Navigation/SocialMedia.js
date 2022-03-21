@@ -28,7 +28,7 @@ const SocialMedia = () => {
         size="large"
         href="https://github.com/Matan356"
       ></Button> 
-      <Typography fontFamily="fantasy"  ml={"10%"} variant="h3" color='black'>Matan's coder</Typography>
+      <Typography component='h1' fontFamily="fantasy"  ml={"10%"} variant="h3" color='black'>Matan's coder</Typography>
     </>
   );
 };

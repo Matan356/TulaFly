@@ -37,9 +37,9 @@ const NavLinks = () => {
         <Tab
           sx={{ color: yellow[50] }}
           label="SIGN UP"
-          value="/signup"
+          value="/auth"
           component={Link}
-          to="/signup"
+          to="/auth"
         />
         <Button
         sx={{color:'black',background:'white'}}
