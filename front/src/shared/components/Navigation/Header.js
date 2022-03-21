@@ -1,56 +1,26 @@
-import {
-  AppBar,
-  Button,
-  IconButton,
-  Toolbar,
-  Typography,
-} from "@material-ui/core";
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import MenuIcon from "@material-ui/icons/Menu";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import HeaderBackground from "../../../assets/images/sky-clouds-rain.jpg";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-  },
-  title: {
-    flexGrow: 1,
-    justifyContent: "center",
-  },
-  margin: {
-    margin: theme.spacing(1),
-  },
-  extendedIcon: {
-    marginRight: theme.spacing(1),
-  },
-}));
-
-const Header = () => {
-  const classes = useStyles();
-
+const Header = (props) => {
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
-          {/* <Button color="inherit">Login</Button> */}
-          <Typography variant="h6" className={classes.title} justify="center">
-            TulaFly
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <>
+      <Box>
+        <AppBar
+          position="fixed"
+          sx={{
+            overflow: "hidden",
+            maxWidth: "100%",
+            height: "15%",
+            backgroundImage: `url(${HeaderBackground})`,
+          }}
+        >
+          <Toolbar>{props.children}</Toolbar>
+        </AppBar>
+      </Box>
+    </>
   );
 };
 

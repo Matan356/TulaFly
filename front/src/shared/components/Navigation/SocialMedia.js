@@ -8,17 +8,16 @@ const SocialMedia = () => {
   return (
     <>
       {" "}
-      <b style={{ color: "black" }}> My Linkedin profile: </b>{" "}
+      <b style={{ color: "black" }}> My Linkedin profile: </b>
       <Button
         startIcon={
           <LinkedInIcon
             sx={{ color: blue[900], width: "50px", height: "50px" }}
             size="large"
-          />
-        }
+          />}
         href="https://www.linkedin.com/in/matan-elgrabli/"
       ></Button>
-      <b style={{ color: "black" }}> My GitHub profile: </b>{" "}
+      <b style={{ color: "black" }}> My GitHub profile: </b>
       <Button
         startIcon={
           <GitIcon
