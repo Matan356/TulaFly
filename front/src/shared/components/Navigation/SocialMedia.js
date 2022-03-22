@@ -7,17 +7,22 @@ import { blue } from "@mui/material/colors";
 const SocialMedia = () => {
   return (
     <>
-      {" "}
-      <b style={{ color: "black" }}> My Linkedin profile: </b>
+      <Typography fontFamily="sans-serif" sx={{ color: "black" }}>
+        My Linkedin profile:
+      </Typography>
       <Button
         startIcon={
           <LinkedInIcon
             sx={{ color: blue[900], width: "50px", height: "50px" }}
             size="large"
-          />}
+          />
+        }
         href="https://www.linkedin.com/in/matan-elgrabli/"
       ></Button>
-      <b style={{ color: "black" }}> My GitHub profile: </b>
+      <Typography fontFamily="sans-serif" sx={{ color: "black" }}>
+        {" "}
+        My GitHub profile:{" "}
+      </Typography>
       <Button
         startIcon={
           <GitIcon
@@ -27,8 +32,16 @@ const SocialMedia = () => {
         }
         size="large"
         href="https://github.com/Matan356"
-      ></Button> 
-      <Typography component='h1' fontFamily="fantasy"  ml={"10%"} variant="h3" color='black'>Matan's coder</Typography>
+      ></Button>
+      <Typography
+        component="h1"
+        fontFamily="fantasy"
+        ml={"10%"}
+        variant="h3"
+        color="black"
+      >
+        Matan's coder
+      </Typography>
     </>
   );
 };

@@ -25,11 +25,12 @@ const MainNavigation = () => {
             marginTop="2%"
             paddingBottom="2rem"
             paddingTop="1rem"
+            // fontFamily="'Lobster', cursive"
+            fontFamily=" 'Abril Fatface', cursive"
           >
             <Link
               style={{
                 padding: "15px",
-                fontFamily: "-moz-initial",
                 textDecoration: "none",
                 color: amber["A100"],
                 textShadow: "2.5px 1px black",
@@ -43,9 +44,8 @@ const MainNavigation = () => {
               TulaFly
             </Link>
           </Typography>
-          <nav style={{textShadow: "1px 1px black", paddingLeft: "20rem" }}>
-            <NavLinks
-            />
+          <nav style={{ paddingLeft: "20rem" }}>
+            <NavLinks />
           </nav>
         </Header>
       </header>

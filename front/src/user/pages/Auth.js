@@ -9,7 +9,7 @@ import Grid from "@mui/material/Grid";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import LoginPhoto from "../../assets/images/pexels-igor-fedoriv-1260991.jpg";
+import LoginPhoto from "../../assets/pexels-igor-fedoriv-1260991.jpg";
 
 const theme = createTheme();
 
@@ -25,7 +25,7 @@ export default function SignInSide() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Grid container component="main" sx={{ height: "80%" }}>
+      <Grid container component="main">
         <CssBaseline />
         <Grid
           item
@@ -104,7 +104,6 @@ export default function SignInSide() {
                 label="Email Address"
                 name="email"
                 autoComplete="email"
-                autoFocus
               />
               <TextField
                 margin="normal"

@@ -93,13 +93,13 @@ const BackDrawer = (props) => {
         <React.Fragment key={"left"}>
           <IconButton
             onClick={toggleDrawer("left", true)}
-            color="inherit"
             aria-label="menu"
+            sx={{color:'black'}}
           >
             <ListSharpIcon
               sx={{
                 fontSize: "3rem",
-                border: "0.25rem solid white",
+                border: "0.25rem solid black",
                 padding: "1px",
                 margin: "1px",
               }}
