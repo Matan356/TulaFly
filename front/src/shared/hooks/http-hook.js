@@ -12,8 +12,9 @@ export const useHttpClient = () => {
       const httpAbortCtrl = new AbortController();
       activeHttpRequests.current.push(httpAbortCtrl);
 
+      let response;
       try {
-        const response = await fetch(url, {
+         response = await fetch(url, {
           method,
           body,
           headers,
@@ -47,7 +48,6 @@ export const useHttpClient = () => {
 
   useEffect(() => {
     return () => {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
       activeHttpRequests.current.forEach(abortCtrl => abortCtrl.abort());
     };
   }, []);

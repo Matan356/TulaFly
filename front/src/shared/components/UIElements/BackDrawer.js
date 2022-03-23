@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useContext } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
@@ -13,8 +13,11 @@ import {
 
 import ListSharpIcon from "@mui/icons-material/ListSharp";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/auth-context";
 
 const BackDrawer = (props) => {
+  const auth = useContext(AuthContext);
+
   const [state, setState] = React.useState({
     left: false,
   });
@@ -40,48 +43,63 @@ const BackDrawer = (props) => {
             </ListSubheader>
           }
         >
-          <ListItem disablePadding >
-            <ListItemButton divider>
-            <Link style={{
-                textDecoration: "none",
-                color:'black'
-
-              }} to='/auth'><ListItemText primary="SIGN UP" inset /></Link>
-            </ListItemButton>
-          </ListItem>{" "}
+          {!auth.isLoggedIn && (
+            <ListItem disablePadding>
+              <ListItemButton divider>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/auth"
+                >
+                  <ListItemText primary="SIGN UP" inset />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          )}
           <ListItem disablePadding>
             <ListItemButton divider>
-              <Link style={{
-                textDecoration: "none",
-                color:'black'
-
-              }} to='/cart'><ListItemText primary="MY CART" inset /></Link>
-              
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to="/cart"
+              >
+                <ListItemText primary="MY CART" inset />
+              </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton divider>
-              
-            <Link style={{
-                textDecoration: "none",
-                color:'black'
-
-              }} to='/about'><ListItemText primary="ABOUT US" inset /></Link>              
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to="/about"
+              >
+                <ListItemText primary="ABOUT US" inset />
+              </Link>
             </ListItemButton>
           </ListItem>
-          <Button
-            sx={{
-              color: "white",
-              background: "black",
-              ml: "3.7rem",
-              marginTop: "1rem",
-            }}
-            variant="contained"
-            component={Link}
-            to="/"
-          >
-            LOG OUT
-          </Button>
+          {auth.isLoggedIn && (
+            <Button
+              sx={{
+                color: "white",
+                background: "black",
+                ml: "3.7rem",
+                marginTop: "1rem",
+              }}
+              variant="contained"
+              component={Link}
+              onClick={auth.logout}
+              to="/"
+            >
+              LOG OUT
+            </Button>
+          )}
         </List>
       </nav>
     </Box>
@@ -94,7 +112,7 @@ const BackDrawer = (props) => {
           <IconButton
             onClick={toggleDrawer("left", true)}
             aria-label="menu"
-            sx={{color:'black'}}
+            sx={{ color: "black" }}
           >
             <ListSharpIcon
               sx={{

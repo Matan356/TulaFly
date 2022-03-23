@@ -43,7 +43,7 @@ export const useForm = (initialInputs, initialFormValidity) => {
       type: 'INPUT_CHANGE',
       value: value,
       isValid: isValid,
-      inputId: id
+      inputId: id 
     });
   }, []);
 
