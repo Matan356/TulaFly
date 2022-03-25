@@ -19,13 +19,11 @@ const MainNavigation = () => {
             variant="caption"
             fontSize="1.8rem"
             component="h1"
-            alignSelf="center"
-            alignContent="center"
+            align="center"
             marginLeft="39%"
             marginTop="2%"
             paddingBottom="2rem"
             paddingTop="1rem"
-            // fontFamily="'Lobster', cursive"
             fontFamily=" 'Abril Fatface', cursive"
           >
             <Link
@@ -44,7 +42,7 @@ const MainNavigation = () => {
               TulaFly
             </Link>
           </Typography>
-          <nav style={{ paddingLeft: "20rem" }}>
+          <nav style={{ paddingLeft: "23rem" }}>
             <NavLinks />
           </nav>
         </Header>

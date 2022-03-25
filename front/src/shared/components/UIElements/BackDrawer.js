@@ -36,10 +36,10 @@ const BackDrawer = (props) => {
     <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
       <nav aria-label="main mailbox folders">
         <List
-          sx={{ width: "30vh" }}
+          sx={{ width: "35vh", textAlign: "center" }}
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              NAVIGATION NAV - BAR
+              NAVIGATION LIST
             </ListSubheader>
           }
         >
@@ -53,7 +53,7 @@ const BackDrawer = (props) => {
                   }}
                   to="/auth"
                 >
-                  <ListItemText primary="SIGN UP" inset />
+                  <ListItemText  primary="SIGN UP" inset />
                 </Link>
               </ListItemButton>
             </ListItem>
@@ -112,11 +112,12 @@ const BackDrawer = (props) => {
           <IconButton
             onClick={toggleDrawer("left", true)}
             aria-label="menu"
-            sx={{ color: "black" }}
+            sx={{ color: "black" ,fontSize:"3rem"}}
+            
           >
             <ListSharpIcon
+            fontSize="3rem"
               sx={{
-                fontSize: "3rem",
                 border: "0.25rem solid black",
                 padding: "1px",
                 margin: "1px",
