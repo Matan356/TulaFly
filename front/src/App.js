@@ -6,6 +6,7 @@ import About from "./shared/components/Navigation/About";
 import Auth from "./user/pages/Auth";
 import { useAuth } from "./shared/hooks/auth-hook";
 import { AuthContext } from "./shared/context/auth-context";
+import { CssBaseline } from "@mui/material";
 
 function App() {
   const { token, login, logout, userId } = useAuth();
@@ -20,6 +21,7 @@ function App() {
 
   return (
     <>
+    <CssBaseline />
       <AuthContext.Provider
         value={{
           isLoggedIn: !!token,

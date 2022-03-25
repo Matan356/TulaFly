@@ -1,55 +1,72 @@
-import { Button, Grid, Tab, Tabs } from "@mui/material";
-import React, { useContext, useState } from "react";
+import { Button } from "@mui/material";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/auth-context";
 
 const NavLinks = () => {
   const auth = useContext(AuthContext);
 
-  const [value, setValue] = useState(0);
-
-  const handleChange = (newValue) => {
-    setValue(newValue);
-  };
-
   return (
     <>
-      <Grid container>
-        <Tabs variant="standard" value={value} onChange={handleChange}>
-          <Tab
-            sx={{ color: "black" }}
-            label="ABOUT US"
-            component={Link}
-            to="/about"
-          />
-          <Tab
-            sx={{ color: "black" }}
-            label="MY CART"
-            component={Link}
-            to="/cart"
-          />
-          {!auth.isLoggedIn && (
-            <Tab
-              sx={{ color: "black" }}
-              label="SIGN IN"
-              component={Link}
-              to="/auth"
-            />
-          )}
+      <Button
+        variant="outlined"
+        color="inherit"
+        sx={{
+          fontFamily: "'Roboto Slab', serif",
+          border: "2px solid #ffe57f",
+          mt: "0.1rem",
+          color: "black",
+        }}
+        component={Link}
+        to="/about"
+      >
+        ABOUT US
+      </Button>
+      <Button
+        variant="outlined"
+        color="inherit"
+        sx={{
+          mr:"0.5rem",
+          ml:"0.5rem",
+          fontFamily: "'Roboto Slab', serif",
+          border: "2px solid #ffe57f",
+          mt: "0.1rem",
+          color: "black",
+        }}
+        component={Link}
+        to="/cart"
+      >
+        MY CART
+      </Button>
+      {!auth.isLoggedIn && (
+        <Button
+          variant="outlined"
+          color="inherit"
+          sx={{
+            fontFamily: "'Roboto Slab', serif",
+            border: "2px solid #ffe57f",
+            mt: "0.1rem",
+            color: "black",
+          }}
+          component={Link}
+          to="/auth"
+        >
+          SIGN IN
+        </Button>
+      )}
 
-          {auth.isLoggedIn && (
-            <Button
-              sx={{ color: "white", background: "black" }}
-              variant="contained"
-              component={Link}
-              onClick={auth.logout}
-              to="/"
-            >
-              LOG OUT
-            </Button>
-          )}
-        </Tabs>
-      </Grid>
+      {auth.isLoggedIn && (
+        <Button
+          sx={{ color: "white", background: "black" }}
+          variant="contained"
+          component={Link}
+          onClick={auth.logout}
+          to="/"
+        >
+          LOG OUT
+        </Button>
+      )}
+      {/* </Tabs> */}
     </>
   );
 };
