@@ -1,7 +1,7 @@
 import React from "react";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitIcon from "@mui/icons-material/GitHub";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Typography, makeStyles } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
 const SocialMedia = () => {
@@ -12,25 +12,20 @@ const SocialMedia = () => {
       </Typography>
       <Button
         startIcon={
-          <LinkedInIcon
-            sx={{ color: blue[900], width: "50px", height: "50px" }}
-          />
+          <LinkedInIcon className="svgIcons" sx={{ color: blue[900] }} />
         }
         href="https://www.linkedin.com/in/matan-elgrabli/"
       ></Button>
       <Typography fontFamily="sans-serif" sx={{ color: "black" }}>
-        {" "}
         My GitHub profile:{" "}
       </Typography>
       <Button
-        startIcon={
-          <GitIcon sx={{ color: "black", width: "45px", height: "50px" }} />
-        }
+        startIcon={<GitIcon className="svgIcons" sx={{ color: "black" }} />}
         size="large"
         href="https://github.com/Matan356"
       ></Button>
 
-      <Grid container >
+      <Grid container>
         <Grid item xs={3}>
           <Typography
             component="h2"
@@ -42,7 +37,7 @@ const SocialMedia = () => {
             width="20rem"
             sx={{ textShadow: "2px 2px grey" }}
           >
-            Matan's coder
+            Matan's coding
           </Typography>
         </Grid>
       </Grid>
