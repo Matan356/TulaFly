@@ -1,10 +1,10 @@
 import React from "react";
-import { Button, Card, CardMedia, Typography } from "@mui/material";
-import AddRoundedIcon from "@material-ui/icons/AddRounded";
+import {  Card, CardMedia, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import SkyBackground from "../../assets/blue-sky-reflection_157744-345.webp";
+import CardButtons from "./CardButtons";
 
 const VacationItem = (props) => {
+
   return (
     <>
       <Card
@@ -13,7 +13,7 @@ const VacationItem = (props) => {
         sx={{ m: "1rem", position: "relative", height: "14rem" }}
         key={props.id}
       >
-        <CardMedia component="img" image={SkyBackground} />
+        <CardMedia component="img" image={props.image} />
         <Box ml={1}>
           <Typography
             component="h1"
@@ -69,38 +69,12 @@ const VacationItem = (props) => {
               textShadow: "2px 1px grey",
             }}
           >
-            {props.price}$
+            {props.price}$ {props.test}
           </Typography>
         </Box>
-        <Box>
-          <Button
-            sx={{
-              position: "absolute",
-              top: "12.1rem",
-              width: "50%",
-              bgcolor: "#ffe57f",
-            }}
-            color="inherit"
-            endIcon={<AddRoundedIcon />}
-          >
-            Follow
-          </Button>
-          <Button
-            sx={{
-              flexWrap: "wrap",
-              position: "absolute",
-              top: "12.1rem",
-              width: "50%",
-              ml: "50%",
-              bgcolor: "#42a5f5",
-              borderColor: "ActiveBorder",
-            }}
-            color="inherit"
-            endIcon={<AddRoundedIcon />}
-          >
-            add to cart
-          </Button>
-        </Box>
+        <CardButtons id={props.id} existUser={props.existUser} icon={props.icon} 
+                buttonText={props.buttonText} inFollow={props.inFollow}
+                />
       </Card>
     </>
   );
