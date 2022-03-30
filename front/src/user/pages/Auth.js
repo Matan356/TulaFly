@@ -19,6 +19,9 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { AuthContext } from "../../shared/context/auth-context";
 import { useNavigate } from "react-router-dom";
 import Input from "../../shared/components/FormElements/Input";
+import BackDrop from "../../shared/components/UIElements/BackDrop";
+import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 const theme = createTheme();
 
@@ -107,7 +110,12 @@ const Auth = () => {
   };
 
   return (
+    
     <>
+     {error && <ErrorModal error={error} onClear={clearError} />}
+    {isLoading && (<div>
+        <BackDrop  open ><LoadingSpiner/></BackDrop>
+      </div>)}
       <ThemeProvider theme={theme}>
         <Grid container component="main">
           <CssBaseline />
@@ -138,7 +146,8 @@ const Auth = () => {
           >
             <Box
               sx={{
-                my: 8,
+                height:"100vh",
+                my: 13,
                 mx: 4,
                 display: "flex",
                 flexDirection: "column",
