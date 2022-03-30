@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
@@ -33,10 +32,9 @@ const BackDrawer = (props) => {
   };
 
   const list = (anchor) => (
-    <Box sx={{ width: "100%", maxWidth: 360, bgcolor: "background.paper" }}>
-      <nav aria-label="main mailbox folders">
+      <nav >
         <List
-          sx={{ width: "35vh", textAlign: "center" }}
+          sx={{ width: "30vh", textAlign: "center" }}
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
               NAVIGATION LIST
@@ -45,7 +43,7 @@ const BackDrawer = (props) => {
         >
           {!auth.isLoggedIn && (
             <ListItem disablePadding>
-              <ListItemButton divider>
+              <ListItemButton divider  onClick={toggleDrawer("left", false)}>
                 <Link
                   style={{
                     textDecoration: "none",
@@ -58,21 +56,22 @@ const BackDrawer = (props) => {
               </ListItemButton>
             </ListItem>
           )}
-          <ListItem disablePadding>
-            <ListItemButton divider>
+          <ListItem disablePadding >
+            <ListItemButton divider  onClick={toggleDrawer("left", false)} >
               <Link
+              
                 style={{
                   textDecoration: "none",
                   color: "black",
                 }}
                 to="/cart"
               >
-                <ListItemText primary="MY CART" inset />
+                <ListItemText primary="MY CART" inset  />
               </Link>
             </ListItemButton>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton divider>
+            <ListItemButton divider  onClick={toggleDrawer("left", false)}>
               <Link
                 style={{
                   textDecoration: "none",
@@ -80,7 +79,7 @@ const BackDrawer = (props) => {
                 }}
                 to="/about"
               >
-                <ListItemText primary="ABOUT US" inset />
+                <ListItemText primary="ABOUT US" inset  />
               </Link>
             </ListItemButton>
           </ListItem>
@@ -89,8 +88,8 @@ const BackDrawer = (props) => {
               sx={{
                 color: "white",
                 background: "black",
-                ml: "3.7rem",
-                marginTop: "1rem",
+                ml: "0.5rem",
+                marginTop: "2rem",
               }}
               variant="contained"
               component={Link}
@@ -102,7 +101,6 @@ const BackDrawer = (props) => {
           )}
         </List>
       </nav>
-    </Box>
   );
 
   return (
@@ -116,9 +114,11 @@ const BackDrawer = (props) => {
             
           >
             <ListSharpIcon
+            className="svgIcons"
             fontSize="3rem"
               sx={{
                 border: "0.25rem solid black",
+                borderRadius:"50%",
                 padding: "1px",
                 margin: "1px",
               }}
