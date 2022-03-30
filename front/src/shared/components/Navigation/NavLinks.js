@@ -26,8 +26,8 @@ const NavLinks = () => {
         variant="outlined"
         color="inherit"
         sx={{
-          mr:"0.5rem",
-          ml:"0.5rem",
+          mr: "0.5rem",
+          ml: "0.5rem",
           fontFamily: "'Roboto Slab', serif",
           border: "2px solid #ffe57f",
           mt: "0.1rem",
@@ -57,7 +57,12 @@ const NavLinks = () => {
 
       {auth.isLoggedIn && (
         <Button
-          sx={{ color: "white", background: "black" }}
+          sx={{
+            color: "white",
+            background: "black",
+            height: "2.35rem",
+            mt: "0.1rem",
+          }}
           variant="contained"
           component={Link}
           onClick={auth.logout}
@@ -66,7 +71,6 @@ const NavLinks = () => {
           LOG OUT
         </Button>
       )}
-      {/* </Tabs> */}
     </>
   );
 };
