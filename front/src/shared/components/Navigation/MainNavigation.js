@@ -8,6 +8,7 @@ import { Typography } from "@mui/material";
 import { amber } from "@mui/material/colors";
 
 import SocialMedia from "./SocialMedia";
+import SimpleModal from "../UIElements/ErrorModal";
 
 const MainNavigation = () => {
   return (
@@ -42,12 +43,11 @@ const MainNavigation = () => {
               TulaFly
             </Link>
           </Typography>
-          <nav style={{ paddingLeft: "23rem" }}>
+          <nav style={{ paddingLeft: "22rem" }}>
             <NavLinks />
           </nav>
         </Header>
       </header>
-
       <Footer>
         <SocialMedia />
       </Footer>
