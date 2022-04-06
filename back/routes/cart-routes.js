@@ -2,19 +2,19 @@ const express = require("express");
 const { check } = require("express-validator");
 const router = express.Router();
 
-const vacationControllers = require("../controllers/vacations-controllers");
+const cartControllers = require("../controllers/cart-controllers");
 const checkAuth = require("../middleware/check-auth");
 
-router.get("/", vacationControllers.getVacations);
-
 router.use(checkAuth);
+
+router.get("/:uid", cartControllers.getCartVacations);
 
 router.patch(
   "/:uid/:vid",
   check("userId").not().isEmpty(),
-  vacationControllers.addVacationToUser
+  cartControllers.addVacationToCart
 );
 
-router.delete("/:uid/:vid", vacationControllers.deleteVacationFromUser);
+router.delete("/:uid/:vid", cartControllers.deleteVacationFromCart);
 
 module.exports = router;
