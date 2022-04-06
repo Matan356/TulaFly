@@ -110,12 +110,22 @@ const Auth = () => {
   };
 
   return (
-    
     <>
-     {error && <ErrorModal error={error} onClear={clearError} />}
-    {isLoading && (<div>
-        <BackDrop  open ><LoadingSpiner/></BackDrop>
-      </div>)}
+      {error && (
+        <ErrorModal
+          errorText={
+            "Sorry, the data you provided is not in the system, please try again."
+          }
+          onClear={clearError}
+        />
+      )}
+      {isLoading && (
+        <div>
+          <BackDrop open>
+            <LoadingSpiner />
+          </BackDrop>
+        </div>
+      )}
       <ThemeProvider theme={theme}>
         <Grid container component="main">
           <CssBaseline />
@@ -146,7 +156,7 @@ const Auth = () => {
           >
             <Box
               sx={{
-                height:"100vh",
+                height: "100vh",
                 my: 13,
                 mx: 4,
                 display: "flex",
@@ -164,7 +174,6 @@ const Auth = () => {
                 <Button
                   fullWidth
                   variant="contained"
-                  inverse
                   onClick={switchModeHandler}
                 >
                   SWITCH TO {isLoginMode ? "SIGNUP" : "LOGIN"}

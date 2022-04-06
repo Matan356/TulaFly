@@ -8,7 +8,6 @@ import { Typography } from "@mui/material";
 import { amber } from "@mui/material/colors";
 
 import SocialMedia from "./SocialMedia";
-import SimpleModal from "../UIElements/ErrorModal";
 
 const MainNavigation = () => {
   return (

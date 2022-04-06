@@ -7,13 +7,11 @@ import BackDrop from "../../shared/components/UIElements/BackDrop";
 import { useAuth } from "../../shared/hooks/auth-hook";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
-import cartContext from "../../shared/context/cart-context";
 
 const CartButton = (props) => {
   const [inCart, setInCart] = useState(props.inCart);
   const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const { token } = useAuth();
-  const { addToCart, removeFromCart } = useContext(cartContext);
 
   const cartHandaler = async () => {
     const vacationId = props.id;
@@ -27,7 +25,6 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
-        addToCart();
         setInCart(true);
       } catch (err) {}
     } else {
@@ -39,7 +36,6 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
-        removeFromCart();
         setInCart(false);
       } catch (err) {}
     }

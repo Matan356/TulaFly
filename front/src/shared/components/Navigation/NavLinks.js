@@ -22,7 +22,28 @@ const NavLinks = () => {
       >
         ABOUT US
       </Button>
-      <Button
+      
+      {!auth.isLoggedIn && (
+        <Button
+          variant="outlined"
+          color="inherit"
+          sx={{
+            mr: "0.5rem",
+            ml: "0.5rem",
+            fontFamily: "'Roboto Slab', serif",
+            border: "2px solid #ffe57f",
+            mt: "0.1rem",
+            color: "black",
+          }}
+          component={Link}
+          to="/auth"
+        >
+          SIGN IN
+        </Button>
+      )}
+
+      {auth.isLoggedIn && (<>
+        <Button
         variant="outlined"
         color="inherit"
         sx={{
@@ -38,24 +59,6 @@ const NavLinks = () => {
       >
         MY CART
       </Button>
-      {!auth.isLoggedIn && (
-        <Button
-          variant="outlined"
-          color="inherit"
-          sx={{
-            fontFamily: "'Roboto Slab', serif",
-            border: "2px solid #ffe57f",
-            mt: "0.1rem",
-            color: "black",
-          }}
-          component={Link}
-          to="/auth"
-        >
-          SIGN IN
-        </Button>
-      )}
-
-      {auth.isLoggedIn && (
         <Button
           sx={{
             color: "white",
@@ -69,7 +72,7 @@ const NavLinks = () => {
           to="/"
         >
           LOG OUT
-        </Button>
+        </Button></>
       )}
     </>
   );
