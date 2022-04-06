@@ -3,7 +3,7 @@ import React from 'react'
 
 const LoadingSpiner = () => {
   return (
-    <div> <CircularProgress color="inherit" /></div>
+    <div> <CircularProgress sx={{alignContent:"center"}} color="inherit" /></div>
   )
 }
 

@@ -1,20 +1,31 @@
 import React from "react";
-import {  Card, CardMedia, Typography } from "@mui/material";
+import { Card, CardMedia, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import CardButtons from "./CardButtons";
+import CardButton from "./FollowHandaler";
+import CartButton from "../../cart/components/CartHandaler";
 
 const VacationItem = (props) => {
-
+ 
   return (
     <>
       <Card
         variant="elevation"
         elevation={10}
         sx={{ m: "1rem", position: "relative", height: "14rem" }}
-        key={props.id}
+        key={props.key}
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
+            <Typography
+              right={15}
+              fontSize="1.2rem"
+              position="absolute"
+              top="0.5rem"
+              textAlign="right"
+              border="2px solid white"
+              p={0.5}
+              borderRadius={2}
+            >lowest price</Typography>
           <Typography
             component="h1"
             fontSize="1.5rem"
@@ -69,12 +80,30 @@ const VacationItem = (props) => {
               textShadow: "2px 1px grey",
             }}
           >
-            {props.price}$ {props.test}
+            {props.price}$
           </Typography>
         </Box>
-        <CardButtons id={props.id} existUser={props.existUser} icon={props.icon} 
-                buttonText={props.buttonText} inFollow={props.inFollow}
-                />
+        <Box>
+          {!props.hiden && (
+            <CardButton
+              id={props.id}
+              existUser={props.existUser}
+              icon={props.icon}
+              buttonText={props.buttonText}
+              inFollow={props.inFollow}
+            />
+          )}
+
+          <CartButton
+            id={props.id}
+            ml={props.ml}
+            width={props.width}
+            existUser={props.existUser}
+            icon={props.icon}
+            buttonText={props.buttonText}
+            inCart={props.inCart}
+          />
+        </Box>
       </Card>
     </>
   );

@@ -2,7 +2,7 @@ import { Container, Grid } from "@mui/material";
 import React from "react";
 import VacationsList from "../components/VacationsList";
 
-const AllVacations = (props) => {
+const AllVacations = () => {
   return (
     <>
       <Container maxWidth="xl" sx={{ mt: "8rem", mb: "8rem" }}>
