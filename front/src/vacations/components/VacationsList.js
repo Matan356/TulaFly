@@ -9,8 +9,11 @@ const VacationsList = () => {
   const [userVacationsId, setUserVacationsId] = useState([]);
   const [existUser, setExistUser] = useState({});
   const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading,  sendRequest } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const [userCartId, setUserCartId] = useState([]);
+  const [calcLowPrice, setCalcLowPrice] = useState();
+  const [minPay, setMinPay] = useState();
+  const [days, setDays] = useState();
 
   useEffect(() => {
     const fetchVacations = async () => {
@@ -46,7 +49,7 @@ const VacationsList = () => {
   }, [sendRequest, existUser]);
 
   useEffect(() => {
-    const fetchVacations = async () => { 
+    const fetchVacations = async () => {
       if (existUser.userId) {
         try {
           const responseData = await sendRequest(
@@ -56,23 +59,39 @@ const VacationsList = () => {
         } catch (err) {}
       }
     };
-    fetchVacations(); 
+    fetchVacations();
   }, [sendRequest, existUser]);
 
-//   useEffect(()=>{ 
-//     const userFollowingVacations = loadedVacations.filter(({ _id }) =>
-//       userVacationsId.includes(_id)
-//     );
-//     setCalcLowPrices(Math.min(...userFollowingVacations.map(x=> x.price) ))  
-//       //  console.log("calcLowPrices :"+calcLowPrices);
-// },[loadedVacations,userVacationsId])
- 
+  useEffect(() => {
+    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
+      userVacationsId.includes(_id)
+    );
+    setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
+
+    const minPay = Math.min(
+      ...userFollowingVacations.map(
+        (x) =>
+          x.price /
+          (Number(x.returnDate.split(".", 1)) -
+            Number(x.departDate.split(".", 1)))
+      )
+    );
+    setMinPay(minPay);
+    const calcDays = Math.min(
+      ...userFollowingVacations.map(
+        (x) =>
+          Number(x.returnDate.split(".", 1)) -
+          Number(x.departDate.split(".", 1))
+      )
+    );
+    setDays(calcDays);
+  }, [loadedVacations, userVacationsId, calcLowPrice, days]);
 
   if (userVacationsId.length === 0) {
     return (
       <>
         {isLoading && (
-          <div> 
+          <div>
             <BackDrop open>
               <LoadingSpiner />
             </BackDrop>
@@ -95,7 +114,6 @@ const VacationsList = () => {
                   inFollow={false}
                   ml={"50%"}
                   width={"50%"}
-
                 />
               </Grid>
             </>
@@ -106,7 +124,7 @@ const VacationsList = () => {
     return (
       <>
         {!isLoading &&
-          loadedVacations && 
+          loadedVacations &&
           loadedVacations
             .filter(
               (
@@ -119,7 +137,7 @@ const VacationsList = () => {
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
-                    id={vacation._id} 
+                    id={vacation._id}
                     description={vacation.description}
                     target={vacation.target}
                     departDate={vacation.departDate}
@@ -130,6 +148,9 @@ const VacationsList = () => {
                     inCart={true}
                     ml={"50%"}
                     width={"50%"}
+                    calc={calcLowPrice}
+                    minPay={minPay}
+                    days={days}
                   />
                 </Grid>
               </>
@@ -159,7 +180,9 @@ const VacationsList = () => {
                     inCart={false}
                     ml={"50%"}
                     width={"50%"}
-
+                    calc={calcLowPrice}
+                    minPay={minPay}
+                    days={days}
                   />
                 </Grid>
               </>
@@ -189,7 +212,6 @@ const VacationsList = () => {
                     inCart={true}
                     ml={"50%"}
                     width={"50%"}
-
                   />
                 </Grid>
               </>

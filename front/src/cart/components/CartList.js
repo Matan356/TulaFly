@@ -11,6 +11,9 @@ const CartList = () => {
   const [existUser, setExistUser] = useState({});
   const [loadedVacations, setLoadedVacations] = useState([]);
   const { isLoading, sendRequest } = useHttpClient();
+  const [calcLowPrice, setCalcLowPrice] = useState();
+  const [minPay, setMinPay] = useState();
+  const [days, setDays] = useState();
 
   useEffect(() => {
     const fetchVacations = async () => {
@@ -45,6 +48,29 @@ const CartList = () => {
     fetchVacations();
   }, [sendRequest, existUser]);
 
+  useEffect(() => {
+    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
+      userVacationsId.includes(_id)
+    );
+    setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
+    const minPay = Math.min(
+      ...userFollowingVacations.map(
+        (x) =>
+          x.price /
+          (Number(x.returnDate.split(".", 1)) -
+            Number(x.departDate.split(".", 1)))
+      )
+    );
+    setMinPay(minPay);
+    const calcDays = Math.min(
+      ...userFollowingVacations.map(
+        (x) =>
+          Number(x.returnDate.split(".", 1)) -
+          Number(x.departDate.split(".", 1))
+      )
+    );
+    setDays(calcDays);
+  }, [loadedVacations, userVacationsId, calcLowPrice]);
 
   if (userVacationsId.length !== 0) {
     return (
@@ -87,6 +113,9 @@ const CartList = () => {
                     ml={null}
                     width={"100%"}
                     hiden={true}
+                    calc={calcLowPrice}
+                    minPay={minPay}
+                    days={days}
                   />
                 </Grid>
               </>

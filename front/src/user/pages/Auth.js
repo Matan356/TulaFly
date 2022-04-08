@@ -108,13 +108,13 @@ const Auth = () => {
       } catch (err) {}
     }
   };
-
-  return (
+  
+  return ( 
     <>
       {error && (
         <ErrorModal
           errorText={
-            "Sorry, the data you provided is not in the system, please try again."
+            "The details you entered are incorrect, please try again."
           }
           onClear={clearError}
         />
