@@ -8,8 +8,8 @@ const NavLinks = () => {
 
   return (
     <>
-      <Grid container spacing={4}   display={{ xs: "none",md:"none",xl:"flex" }} flexDirection="row"  >
-        <Grid item >
+      <Grid container spacing={4} flexDirection="row">
+        <Grid item>
           <Button
             variant="outlined"
             color="inherit"
@@ -17,8 +17,7 @@ const NavLinks = () => {
               fontFamily: "'Roboto Slab', serif",
               border: "2px solid #ffe57f",
               color: "black",
-             
-              
+              display: { xs: "none", md: "none", xl: "flex" },
             }}
             component={Link}
             to="/about"
@@ -34,7 +33,7 @@ const NavLinks = () => {
                 color="inherit"
                 fullWidth
                 sx={{
-                 
+                  display: { xs: "none", md: "none", xl: "flex" },
                   fontFamily: "'Roboto Slab', serif",
                   border: "2px solid #ffe57f",
                   color: "black",
@@ -50,15 +49,15 @@ const NavLinks = () => {
 
         {auth.isLoggedIn && (
           <>
-            <Grid item >
+            <Grid item>
               <Button
                 variant="outlined"
                 color="inherit"
                 sx={{
+                  display: { xs: "none", md: "none", xl: "flex" },
                   fontFamily: "'Roboto Slab', serif",
                   border: "2px solid #ffe57f",
                   color: "black",
-                 
                 }}
                 component={Link}
                 to="/cart"
@@ -66,9 +65,10 @@ const NavLinks = () => {
                 MY CART
               </Button>
             </Grid>
-            <Grid item >
+            <Grid item>
               <Button
                 sx={{
+                  display: { xs: "none", md: "none", xl: "flex" },
                   color: "white",
                   background: "black",
                   height: "2.35rem",

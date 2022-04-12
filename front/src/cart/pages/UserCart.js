@@ -6,7 +6,7 @@ import CartList from "../components/CartList";
 const UserCart = () => {
   return (
     <>
-        <Container maxWidth="xl" sx={{ mt: "9rem", mb: "8rem" }}>
+        <Container maxWidth="xl" sx={{ mt: "10rem", mb: "8rem" }}>
           <Grid container>
             <CartList />
           </Grid>

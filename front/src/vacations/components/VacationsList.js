@@ -99,7 +99,7 @@ const VacationsList = () => {
           loadedVacations &&
           loadedVacations.map((vacation) => (
             <>
-              <Grid item xs={12} md={6} xl={6}>
+              <Grid item xs={12} md={6} xl={4}>
                 <VacationItem
                   id={vacation._id}
                   existUser={existUser}
@@ -131,7 +131,7 @@ const VacationsList = () => {
             )
             .map((vacation,i) => (
               <>
-                <Grid item xs={12} md={6} xl={6}>
+                <Grid item xs={12} md={6} xl={4}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -163,7 +163,7 @@ const VacationsList = () => {
             )
             .map((vacation,i) => (
               <>
-                <Grid item xs={12} md={6} xl={6}>
+                <Grid item xs={12} md={6} xl={4}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -195,7 +195,7 @@ const VacationsList = () => {
             )
             .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={6}>
+                <Grid item xs={12} md={6} xl={4}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -224,7 +224,7 @@ const VacationsList = () => {
             )
             .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={6}>
+                <Grid item xs={12} md={6} xl={4}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}

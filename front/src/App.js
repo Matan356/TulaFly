@@ -8,6 +8,7 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import { AuthContext } from "./shared/context/auth-context";
 import LoadingSpiner from "./shared/components/UIElements/LoadingSpiner";
 import UserCart from "./cart/pages/UserCart";
+import Checkout from './cart/pages/Checkout'
 
 function App() {
   const { token, login, logout, userId } = useAuth();
@@ -19,6 +20,7 @@ function App() {
         <Route path="/auth" element={<Auth />}></Route>
         <Route path="/about" element={<About />}></Route>
         <Route path="/cart" element={<UserCart />}></Route>
+        <Route path="/pay" element={<Checkout />}></Route>
       </>
     );
   } else {

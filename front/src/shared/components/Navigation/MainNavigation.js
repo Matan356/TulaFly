@@ -17,10 +17,10 @@ const MainNavigation = () => {
           <BackDrawer />
           <Typography
             variant="caption"
-            fontSize={{xl:48,md:40,xs:30}}
+            fontSize={{xl:48,md:43,xs:35}}
             component="h1"
             mt={2}
-            ml={{xs:12,xl:58}}
+            ml={{xs:16,xl:58,md:26}}
             mr={{md:22}}
             paddingBottom="2rem"
             paddingTop="1rem"

@@ -1,6 +1,7 @@
 import { Grid } from "@material-ui/core";
 import { Button, Container, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
@@ -63,10 +64,9 @@ const CartList = () => {
     );
     setMinPay(minPay);
     const calcDays = userFollowingVacations.map(
-        (x) =>
-          Number(x.returnDate.split(".", 1)) -
-          Number(x.departDate.split(".", 1))
-      )
+      (x) =>
+        Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
+    );
     setDays(calcDays);
   }, [loadedVacations, userVacationsId, calcLowPrice]);
 
@@ -79,10 +79,27 @@ const CartList = () => {
           component="h1"
           mb={3}
           textAlign="center"
-          ml="40%"
+          ml={{ xl: 77, md: 43, xs: 9 }}
         >
           MT CART!
         </Typography>
+        <Grid item xl={12} md={12} xs={12}>
+          <Button
+            color="success"
+            variant="contained"
+            sx={{
+              width: { xl: 1455, md: 857, xs: 335 },
+              ml: 2,
+              textAlign: "center",
+              fontFamily: "'Jost', sans-serif",
+              fontSize: 17,
+            }}
+            component={Link}
+            to="/pay"
+          >
+            Complete the purchase
+          </Button>
+        </Grid>
         {isLoading && (
           <div>
             <BackDrop open>
@@ -94,7 +111,7 @@ const CartList = () => {
           loadedVacations &&
           loadedVacations
             .filter(({ _id }) => userVacationsId.includes(_id))
-            .map((vacation,i) => (
+            .map((vacation, i) => (
               <>
                 <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
@@ -123,25 +140,46 @@ const CartList = () => {
   } else {
     return (
       <>
-        <Container maxWidth="sm" sx={{ textAlign: "center", mt: "3rem" }}>
+        <Container maxWidth="xl" sx={{ textAlign: "center", mt: "3rem" }}>
           <Typography
             fontFamily="'Cabin Sketch', cursi"
             variant="h2"
             component="h1"
+            fontSize={{ xl: 100, md: 90 }}
             mb={3}
           >
             The cart is empty!
           </Typography>
-          <Typography variant="h5" fontFamily="'Roboto Slab', serif" mb={2}>
+          <Typography
+            variant="h5"
+            fontSize={{ xl: 30, md: 27 }}
+            fontFamily="'Roboto Slab', serif"
+            mb={2}
+          >
             You do not have any vacations in the cart yet.
           </Typography>
-          <Typography variant="h5" fontFamily="'Roboto Slab', serif" mb={2}>
+          <Typography
+            variant="h5"
+            fontSize={{ xl: 30, md: 27 }}
+            fontFamily="'Roboto Slab', serif"
+            mb={2}
+          >
             Go back to the home page and add vacations❕❕
           </Typography>
-          <Typography variant="h5" fontFamily="'Roboto Slab', serif" mb={2}>
+          <Typography
+            variant="h5"
+            fontSize={{ xl: 30, md: 27 }}
+            fontFamily="'Roboto Slab', serif"
+            mb={2}
+          >
             To the home page:{" "}
           </Typography>
-          <Button href="/" variant="contained" color="primary">
+          <Button
+            href="/"
+            variant="contained"
+            sx={{ fontSize: { xl: 20, md: 18, xs: 15 } }}
+            color="primary"
+          >
             HOME
           </Button>
         </Container>

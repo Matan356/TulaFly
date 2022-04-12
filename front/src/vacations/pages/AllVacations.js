@@ -6,7 +6,7 @@ const AllVacations = () => {
   return (
     <>
       <Container maxWidth="xl" sx={{ mt: "9rem", mb: "8rem" }}>
-        <Grid container>
+        <Grid container >
           <VacationsList />
         </Grid>
       </Container>
