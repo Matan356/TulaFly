@@ -77,11 +77,13 @@ const VacationsList = () => {
       )
     );
     setMinPay(minPay);
-    const calcDays = userFollowingVacations.map(
+    const calcDays = Math.min(
+      ...userFollowingVacations.map(
         (x) =>
           Number(x.returnDate.split(".", 1)) -
           Number(x.departDate.split(".", 1))
       )
+    );
     setDays(calcDays);
   }, [loadedVacations, userVacationsId, calcLowPrice, days]);
 
@@ -99,7 +101,7 @@ const VacationsList = () => {
           loadedVacations &&
           loadedVacations.map((vacation) => (
             <>
-              <Grid item xs={12} md={6} xl={4}>
+              <Grid item xs={12} md={6} xl={6}>
                 <VacationItem
                   id={vacation._id}
                   existUser={existUser}
@@ -129,9 +131,9 @@ const VacationsList = () => {
                 { _id } // yes follow yes cart
               ) => userVacationsId.includes(_id) && userCartId.includes(_id)
             )
-            .map((vacation,index) => (
+            .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={4}>
+                <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -148,7 +150,7 @@ const VacationsList = () => {
                     width={"50%"}
                     calc={calcLowPrice}
                     minPay={minPay}
-                  days={days[index]}
+                    days={days}
                   />
                 </Grid>
               </>
@@ -163,7 +165,7 @@ const VacationsList = () => {
             )
             .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={4}>
+                <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -195,7 +197,7 @@ const VacationsList = () => {
             )
             .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={4}>
+                <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}
@@ -224,7 +226,7 @@ const VacationsList = () => {
             )
             .map((vacation) => (
               <>
-                <Grid item xs={12} md={6} xl={4}>
+                <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
                     key={vacation._id}
                     existUser={existUser}

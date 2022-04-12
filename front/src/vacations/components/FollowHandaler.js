@@ -9,7 +9,7 @@ import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 const CardButton = (props) => {
-  const { isLoading, sendRequest, clearError,error } = useHttpClient();
+  const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const { token } = useAuth();
   const [inFollow, setInFollow] = useState(props.inFollow);
 
@@ -43,7 +43,7 @@ const CardButton = (props) => {
 
   return (
     <>
-      {error && !token &&(
+      {error && (
         <ErrorModal
           errorText={
             "You will not be able to follow this vacation, you will need to register / log in first."
