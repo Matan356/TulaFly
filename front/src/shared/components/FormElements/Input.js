@@ -50,23 +50,22 @@ const Input = (props) => {
     });
   };
 
-
   return (
     <>
-          <TextField
-      id={props.id}
-      type={props.type}
-      placeholder={props.placeholder}
-      onChange={changeHandler}
-      onBlur={touchHandler}
-      value={inputState.value}
-      margin="normal"
-      required
-      fullWidth
-      name={props.name}
-      label={props.label}
-      autoComplete={props.autoComplete}
-    />
+      <TextField
+        id={props.id}
+        type={props.type}
+        placeholder={props.placeholder}
+        onChange={changeHandler}
+        onBlur={touchHandler}
+        value={inputState.value}
+        margin="normal"
+        required
+        fullWidth
+        name={props.name}
+        label={props.label}
+        autoComplete={props.autoComplete}
+      />
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </>
   );

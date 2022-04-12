@@ -17,11 +17,11 @@ const MainNavigation = () => {
           <BackDrawer />
           <Typography
             variant="caption"
-            fontSize="1.8rem"
+            fontSize={{xl:48,md:40,xs:30}}
             component="h1"
-            align="center"
-            marginLeft="39%"
-            marginTop="2%"
+            mt={2}
+            ml={{xs:12,xl:58}}
+            mr={{md:22}}
             paddingBottom="2rem"
             paddingTop="1rem"
             fontFamily=" 'Abril Fatface', cursive"
@@ -42,7 +42,7 @@ const MainNavigation = () => {
               TulaFly
             </Link>
           </Typography>
-          <nav style={{ paddingLeft: "22rem" }}>
+          <nav>
             <NavLinks />
           </nav>
         </Header>

@@ -1,20 +1,21 @@
 import { Box, Button, Container, Grid, Paper, Typography } from "@mui/material";
 import React from "react";
+import { Link } from "react-router-dom";
 
 const About = () => {
   return (
     <>
-      <Grid container maxWidth="xl" sx={{ bgcolor: "#ffe57f", height: "100%" }}>
-        <Grid item xl={12} md={12} xs={12}>
-          <Container maxWidth="sm">
+      <Grid container  sx={{ bgcolor: "#ffe57f", height: {xl:980} ,width:"100%" }} >
+        <Grid item xl={12} md={12} xs={12}  >
+          <Container maxWidth="xl" >
             <Paper
               elevation={3}
               sx={{
                 pt: 1,
-                mt: "5rem",
+                mt: {md:15,xs:15,xl:13},
                 mb: "6rem",
-                maxWidth: "45rem",
-                minWidth: "20rem",
+                ml:{xl:30,md:7},
+                width:{md:800,xl:1000},
                 textAlign: "center",
               }}
             >
@@ -23,6 +24,7 @@ const About = () => {
                   fontSize={35}
                   bgcolor="#fce68f"
                   border="2px solid black"
+                  borderRadius={3}
                   component="h1"
                   variant="overline"
                   mt={2}
@@ -68,9 +70,19 @@ const About = () => {
                 <Typography fontSize={23} fontFamily="'Jost', sans-serif">
                   Follow requested flights and get a very affordable offer:
                 </Typography>
-                <Button href="/" variant="contained" sx={{ mt: "1rem" }}>
-                  GO!
-                </Button>
+                <Button
+          sx={{
+            fontFamily: "'Jost', sans-serif",
+            position:"relative",
+          }}
+          variant="contained"
+          color="primary"
+          component={Link}
+          to={"/"}
+          
+        >
+        GO!
+        </Button>
               </Box>
             </Paper>
           </Container>

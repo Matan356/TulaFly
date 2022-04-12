@@ -1,7 +1,7 @@
 import React from "react";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitIcon from "@mui/icons-material/GitHub";
-import { Button, Grid, Typography, makeStyles } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { blue } from "@mui/material/colors";
 
 const SocialMedia = () => {
@@ -25,22 +25,20 @@ const SocialMedia = () => {
         href="https://github.com/Matan356"
       ></Button>
 
-      <Grid container>
-        <Grid item xs={3}>
+   
           <Typography
             component="h2"
             fontFamily="fantasy"
-            textAlign={"center"}
-            ml={"11rem"}
+            align="center"
+            mr={{xs:1,md:32,xl:41}}
+            fontSize={{xs:30,md:45,xl:56}}
             variant="h3"
             color="black"
-            width="20rem"
+            width="100%"
             sx={{ textShadow: "2px 2px grey" }}
           >
             Matan's coding
           </Typography>
-        </Grid>
-      </Grid>
     </>
   );
 };

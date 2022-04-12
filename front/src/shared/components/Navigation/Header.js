@@ -12,12 +12,21 @@ const Header = (props) => {
           sx={{
             overflow: "hidden",
             maxWidth: "100%",
-            height: "15%",
+            height: 142,
             backgroundImage: `url(${HeaderBackground})`,
-            backgroundSize:'cover'
+            backgroundSize: "cover",
+            justifyContent: "center"
+
           }}
         >
-          <Toolbar>{props.children}</Toolbar>
+          <Toolbar
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            {props.children}
+          </Toolbar>
         </AppBar>
       </Box>
     </>
