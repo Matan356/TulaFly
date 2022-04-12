@@ -77,13 +77,11 @@ const VacationsList = () => {
       )
     );
     setMinPay(minPay);
-    const calcDays = Math.min(
-      ...userFollowingVacations.map(
+    const calcDays = userFollowingVacations.map(
         (x) =>
           Number(x.returnDate.split(".", 1)) -
           Number(x.departDate.split(".", 1))
       )
-    );
     setDays(calcDays);
   }, [loadedVacations, userVacationsId, calcLowPrice, days]);
 
@@ -131,7 +129,7 @@ const VacationsList = () => {
                 { _id } // yes follow yes cart
               ) => userVacationsId.includes(_id) && userCartId.includes(_id)
             )
-            .map((vacation) => (
+            .map((vacation,i) => (
               <>
                 <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
@@ -150,7 +148,7 @@ const VacationsList = () => {
                     width={"50%"}
                     calc={calcLowPrice}
                     minPay={minPay}
-                    days={days}
+                    days={days[i]}
                   />
                 </Grid>
               </>
@@ -163,7 +161,7 @@ const VacationsList = () => {
                 { _id } // yes follow no cart
               ) => userVacationsId.includes(_id) && !userCartId.includes(_id)
             )
-            .map((vacation) => (
+            .map((vacation,i) => (
               <>
                 <Grid item xs={12} md={6} xl={6}>
                   <VacationItem
@@ -182,7 +180,7 @@ const VacationsList = () => {
                     width={"50%"}
                     calc={calcLowPrice}
                     minPay={minPay}
-                    days={days}
+                    days={days[i]}
                   />
                 </Grid>
               </>

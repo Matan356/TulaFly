@@ -16,7 +16,7 @@ const VacationItem = (props) => {
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
-          {props.price === props.minPay * props.days && props.price !== props.calc && (
+          {props.price === props.minPay * props.days &&  (
             <Typography
               right={15}
               fontSize="1.2rem"

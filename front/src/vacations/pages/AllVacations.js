@@ -5,7 +5,7 @@ import VacationsList from "../components/VacationsList";
 const AllVacations = () => {
   return (
     <>
-      <Container maxWidth="xl" sx={{ mt: "8rem", mb: "8rem" }}>
+      <Container maxWidth="xl" sx={{ mt: "9rem", mb: "8rem" }}>
         <Grid container>
           <VacationsList />
         </Grid>
