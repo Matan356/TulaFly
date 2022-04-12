@@ -127,7 +127,7 @@ const Auth = () => {
         </div>
       )}
       <ThemeProvider theme={theme}>
-        <Grid container component="main">
+        <Grid container component="main" >
           <CssBaseline />
           <Grid
             item
@@ -157,7 +157,7 @@ const Auth = () => {
             <Box
               sx={{
                 height: "100vh",
-                my: 13,
+                my: 12,
                 mx: 4,
                 display: "flex",
                 flexDirection: "column",

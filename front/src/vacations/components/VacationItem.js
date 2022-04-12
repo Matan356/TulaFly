@@ -5,7 +5,10 @@ import CardButton from "./FollowHandaler";
 import CartButton from "../../cart/components/CartHandaler";
 
 const VacationItem = (props) => {
-
+  console.log("props.minPay :"+props.minPays);
+  let res = [];
+  res.push(props.pays)
+  console.log("res :"+res);
   return (
     <>
       <Card
@@ -16,7 +19,7 @@ const VacationItem = (props) => {
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
-          {props.price === props.minPay * props.days && props.price !== props.calc && (
+          {props.price === props.minPay * props.days  && (
             <Typography
               right={15}
               fontSize="1.2rem"
@@ -73,7 +76,7 @@ const VacationItem = (props) => {
               textShadow: "2px 1px grey",
             }}
           >
-            {props.description}
+            {props.description} - {props.days}- 
           </Typography>
           <Typography
             position="absolute"
