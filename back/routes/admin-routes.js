@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.use(checkAuth);
 
-router.get("/:aid/users", checkAdmin, usersControllers.getUsers);
 
 router.post(
   "/:aid/",

@@ -5,8 +5,12 @@ const usersControllers = require("../controllers/users-controllers");
 const vacationControllers = require("../controllers/vacations-controllers");
 const router = express.Router();
 
+router.get("/users", usersControllers.getUsers);
+
 router.get("/", vacationControllers.getVacations); 
+
 router.get("/:uid", vacationControllers.getVacationsOfUser); 
+
 
 router.post(
   "/signup",
@@ -21,5 +25,7 @@ router.post(
 );
 
 router.post("/login", usersControllers.login);
+
+
 
 module.exports = router;
