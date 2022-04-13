@@ -1,7 +1,6 @@
-import React from 'react'
+import React from "react";
 
-export const UserItem = () => {
-  return (
-    <div>UserItem</div>
-  )
-}
+const UserItem = () => {
+  return <div>UserItem</div>;
+};
+export default UserItem;

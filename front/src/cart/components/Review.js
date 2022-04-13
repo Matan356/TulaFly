@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
+import { Button, Grid, List, ListItem, ListItemText, Typography } from "@mui/material";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
@@ -47,6 +47,20 @@ const Review = (props) => {
     userVacationsId.includes(_id)
   );
 
+
+  const checkOut = async ()=>{
+    try {
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}cart/${existUser.userId}`,
+        "DELETE",
+        {
+          "Content-Type": "application/json",
+        }
+      );
+    } catch (err) {}
+    props.handleNext()
+  }
+
   return (
     <React.Fragment>
       {isLoading && (
@@ -68,14 +82,14 @@ const Review = (props) => {
                 primary={vacation.target}
                 secondary={vacation.description}
               />
-              <Typography variant="body2">{vacation.price}</Typography>
+              <Typography variant="body2">{vacation.price}  $</Typography>
             </ListItem>
           ))}
 
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {userVacations.reduce((sum, i) => (sum += i.price), 0)}
+            {userVacations.reduce((sum, i) => (sum += i.price), 0)} $
           </Typography>
         </ListItem>
       </List>
@@ -117,6 +131,14 @@ const Review = (props) => {
                 </Typography>{" "}
                 <Typography>{props.formpaymentCallBack.cvv}</Typography>
               </Grid>
+<Grid item >
+              <Button
+                      variant="contained"
+                      onClick={checkOut}
+                      sx={{ mt: 3,ml:{xl:30,md:30,xs:23} }}
+                    >
+                      Place order
+                    </Button></Grid>
             </React.Fragment>
           </Grid>
         </Grid>

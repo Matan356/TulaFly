@@ -12,11 +12,11 @@ const VacationItem = (props) => {
         variant="elevation"
         elevation={10}
         sx={{ m: "1rem", position: "relative", height: "14rem" }}
-        key={props.key}
+        key={props.id}
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
-          {props.price === props.minPay * props.days &&  (
+          {props.price === props.minPay * props.days && props.price !== props.calc && (
             <Typography
               right={15}
               fontSize="1.2rem"

@@ -1,6 +1,5 @@
 import {
-  Box,
-  Button,
+
   Container,
   CssBaseline,
   Link,
@@ -148,17 +147,6 @@ const Checkout = () => {
             ) : (
               <React.Fragment>
                 {getStepContent(activeStep)}
-                <Box sx={{ display: "flex" }}>
-                  {activeStep === steps.length - 1 && (
-                    <Button
-                      variant="contained"
-                      onClick={handleNext}
-                      sx={{ mt: 3, ml: { xs: 22, md: 80 } }}
-                    >
-                      Place order
-                    </Button>
-                  )}
-                </Box>
               </React.Fragment>
             )}
           </React.Fragment>

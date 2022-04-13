@@ -78,12 +78,11 @@ const VacationsList = () => {
     );
     setMinPay(minPay);
     const calcDays = userFollowingVacations.map(
-        (x) =>
-          Number(x.returnDate.split(".", 1)) -
-          Number(x.departDate.split(".", 1))
-      )
+      (x) =>
+        Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
+    );
     setDays(calcDays);
-  }, [loadedVacations, userVacationsId, calcLowPrice, days]);
+  }, [loadedVacations, userVacationsId, calcLowPrice]);
 
   if (userVacationsId.length === 0) {
     return (
@@ -129,7 +128,7 @@ const VacationsList = () => {
                 { _id } // yes follow yes cart
               ) => userVacationsId.includes(_id) && userCartId.includes(_id)
             )
-            .map((vacation,i) => (
+            .map((vacation, i) => (
               <>
                 <Grid item xs={12} md={6} xl={4}>
                   <VacationItem
@@ -161,7 +160,7 @@ const VacationsList = () => {
                 { _id } // yes follow no cart
               ) => userVacationsId.includes(_id) && !userCartId.includes(_id)
             )
-            .map((vacation,i) => (
+            .map((vacation, i) => (
               <>
                 <Grid item xs={12} md={6} xl={4}>
                   <VacationItem

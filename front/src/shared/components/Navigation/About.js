@@ -12,7 +12,7 @@ const About = () => {
               elevation={3}
               sx={{
                 pt: 1,
-                mt: {md:15,xs:15,xl:13},
+                mt: {md:15,xs:15,xl:10},
                 mb: "6rem",
                 ml:{xl:30,md:7},
                 width:{md:800,xl:1000},
@@ -29,7 +29,7 @@ const About = () => {
                   variant="overline"
                   mt={2}
                 >
-                  Welcome to TulaFly
+                  Welcome to TulaFly! 😃
                 </Typography>
                 <Typography variant="h6" component="h2" mt={2}fontFamily=" 'Comfortaa', cursive">
                   Vacation booking platform at low and affordable prices.
@@ -67,7 +67,7 @@ const About = () => {
                 <Typography fontSize={22} mt={2} color="chocolate" fontFamily="'Jost', sans-serif">
                   Ready to go on vacation?
                 </Typography>
-                <Typography fontSize={23} fontFamily="'Jost', sans-serif">
+                <Typography fontSize={23} fontFamily="'Jost', sans-serif" gutterBottom>
                   Follow requested flights and get a very affordable offer:
                 </Typography>
                 <Button
