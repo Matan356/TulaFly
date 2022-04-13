@@ -1,5 +1,4 @@
 const express = require("express");
-const { check } = require("express-validator");
 const router = express.Router();
 
 const cartControllers = require("../controllers/cart-controllers");
@@ -11,10 +10,11 @@ router.get("/:uid", cartControllers.getCartVacations);
 
 router.patch(
   "/:uid/:vid",
-  check("userId").not().isEmpty(),
   cartControllers.addVacationToCart
 );
 
 router.delete("/:uid/:vid", cartControllers.deleteVacationFromCart);
+
+router.delete("/:uid", cartControllers.deleteAllVacationsFromCart);
 
 module.exports = router;

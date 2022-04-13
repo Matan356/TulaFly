@@ -1,5 +1,4 @@
 const express = require("express");
-const { check } = require("express-validator");
 const router = express.Router();
 
 const vacationControllers = require("../controllers/vacations-controllers");
@@ -11,7 +10,6 @@ router.use(checkAuth);
 
 router.patch(
   "/:uid/:vid",
-  check("userId").not().isEmpty(),
   vacationControllers.addVacationToUser
 );
 

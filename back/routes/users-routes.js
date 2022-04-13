@@ -6,6 +6,7 @@ const vacationControllers = require("../controllers/vacations-controllers");
 const router = express.Router();
 
 router.get("/", vacationControllers.getVacations); 
+router.get("/:uid", vacationControllers.getVacationsOfUser); 
 
 router.post(
   "/signup",

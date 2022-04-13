@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const HttpError = require("../models/http-error");
 const Vacation = require("../models/vacation");
 const User = require("../models/user");
-const user = require("../models/user");
+const { json } = require("express");
 
 const createVacation = async (req, res, next) => {
   const errors = validationResult(req);
@@ -136,22 +136,24 @@ const deleteVacation = async (req, res, next) => {
 };
 
 const addVacationToUser = async (req, res, next) => {
+  const userId = req.params.uid; 
   const vacationId = req.params.vid;
-  const userId = req.params.uid;
 
   let existVacation = await Vacation.findById(vacationId);
   let existUser = await User.findById(userId);
 
-  const userVacations = existUser.vacations.find((x) => x == existVacation.id);
-
-  if (userVacations == vacationId) {
+  const userVacation = existUser.vacations.find((x) => x == existVacation.id);
+ 
+  if (userVacation == vacationId) {
     const error = new HttpError(
       "Could not follow for this vacation, you are already following.",
       500
     );
     return next(error);
   }
+
   try {
+    
     existUser.vacations.push(existVacation);
     await existUser.save();
   } catch (err) {
@@ -160,7 +162,9 @@ const addVacationToUser = async (req, res, next) => {
       500
     );
     return next(error);
+    
   }
+
   res.status(200).json({ existUser });
 };
 
@@ -168,11 +172,11 @@ const deleteVacationFromUser = async (req, res, next) => {
   const vacationId = req.params.vid;
   const userId = req.params.uid;
   let existUser = await User.findById(userId);
-  const userVacations = existUser.vacations.find((x) => x == vacationId);
+  const userVacation = existUser.vacations.find((x) => x == vacationId);
 
-  if (!userVacations) {
+  if (!userVacation) {
     const error = new HttpError(
-      "Could not follow for this vacation, you are already following.",
+      "Something went wrong, Could not delete this vacation.",
       500
     );
     return next(error);
@@ -185,7 +189,7 @@ const deleteVacationFromUser = async (req, res, next) => {
     );
   } catch (err) {
     const error = new HttpError(
-      "Something went wrong, could not unfollow to this vacation.",
+      "Something went wrong, could not delete to this vacation.",
       500
     );
     return next(error);

@@ -92,6 +92,34 @@ const getCartVacations = async (req, res, next) => {
   res.status(200).json({ userCart });
 };
 
+const deleteAllVacationsFromCart = async (req, res, next) => {
+  const userId = req.params.uid;
+  let existUser = await User.findById(userId);
+  const userCart = existUser.cart;
+  if (!userCart) {
+    const error = new HttpError(
+      "Something went wrong, Could not delete this vacation from cart .",
+      500
+    );
+    return next(error);
+  }
+  try {
+    updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $pullAll: { cart:[...userCart] } },
+      { new: true }
+    );
+  } catch (err) {
+    const error = new HttpError(
+      "Something went wrong, could not delete this vacation from cart.",
+      500
+    );
+    return next(error);
+  }
+  res.status(200).json({ updatedUser });
+};
+
 exports.getCartVacations = getCartVacations;
 exports.deleteVacationFromCart = deleteVacationFromCart;
 exports.addVacationToCart = addVacationToCart;
+exports.deleteAllVacationsFromCart = deleteAllVacationsFromCart;

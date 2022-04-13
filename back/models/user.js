@@ -4,8 +4,6 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   isAdmin: {
     type: Boolean,
-    // enum: ["admin", "user"],
-    // default:"user"
   },
   name: { type: String, required: true },
   lastName: { type: String, required: true },
@@ -15,6 +13,8 @@ const userSchema = new Schema({
   vacations: [
     { type: mongoose.Types.ObjectId, required: false, ref: "Vacatin" },
   ],
+  cart: [{ type: mongoose.Types.ObjectId, required: false, ref: "Vacatin" }],
 });
 
 module.exports = mongoose.model("User", userSchema);
+ 
