@@ -44,8 +44,9 @@ const UserAvatar = () => {
           fontFamily="'Questrial', sans-serif"
           color="#346eeb"
           variant="h1"
-          ml={{ xs: 12, xl: 78, md: 45 }}
-          fontSize={{ xs: 30, xl: 45, md: 40 }}
+          fontSize={{ xs: 30, xl: 45, md: 40,xxl:50 }}
+          textAlign="center"
+
         >
           Hello {userDet.userName}!
         </Typography>

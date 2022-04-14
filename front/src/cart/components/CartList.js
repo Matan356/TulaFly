@@ -7,10 +7,8 @@ import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import VacationItem from "../../vacations/components/VacationItem";
 
-const CartList = () => {
+const CartList = (props) => {
   const [userVacationsId, setUserVacationsId] = useState([]);
-  const [existUser, setExistUser] = useState({});
-  const [loadedVacations, setLoadedVacations] = useState([]);
   const { isLoading, sendRequest } = useHttpClient();
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
@@ -18,39 +16,20 @@ const CartList = () => {
 
   useEffect(() => {
     const fetchVacations = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}main`
-        );
-        setLoadedVacations(responseData.vacation);
-      } catch (err) {}
-    };
-    fetchVacations();
-  }, [sendRequest]);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userData"));
-    if (user) {
-      setExistUser(user);
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchVacations = async () => {
-      if (existUser.userId) {
+      if (props.userId) {
         try {
           const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}cart/${existUser.userId}`
+            `${process.env.REACT_APP_BACKEND_URL}cart/${props.userId}`
           );
           setUserVacationsId(responseData.userCart);
         } catch (err) {}
       }
     };
     fetchVacations();
-  }, [sendRequest, existUser]);
+  }, [sendRequest, props.userId]);
 
   useEffect(() => {
-    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
+    const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
       userVacationsId.includes(_id)
     );
     setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
@@ -68,7 +47,7 @@ const CartList = () => {
         Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
     );
     setDays(calcDays);
-  }, [loadedVacations, userVacationsId, calcLowPrice]);
+  }, [props.loadedVacations, userVacationsId, calcLowPrice]);
 
   if (userVacationsId.length !== 0) {
     return (
@@ -80,22 +59,13 @@ const CartList = () => {
             </BackDrop>
           </div>
         )}
-        <Typography
-          fontFamily="'Cabin Sketch', cursi"
-          variant="h2"
-          component="h1"
-          mb={3}
-          textAlign="center"
-          ml={{ xl: 77, md: 43, xs: 9 }}
-        >
-          MT CART!
-        </Typography>
+
         <Grid item xl={12} md={12} xs={12}>
           <Button
             color="success"
             variant="contained"
             sx={{
-              width: { xl: 1455, md: 857, xs: 335 },
+              minWidth: { xl: 1455, md: "97%", xs: 335 },
               ml: 2,
               textAlign: "center",
               fontFamily: "'Jost', sans-serif",
@@ -109,14 +79,14 @@ const CartList = () => {
         </Grid>
 
         {!isLoading &&
-          loadedVacations &&
-          loadedVacations
+          props.loadedVacations &&
+          props.loadedVacations
             .filter(({ _id }) => userVacationsId.includes(_id))
             .map((vacation, i) => (
               <Grid item xs={12} md={6} xl={6} key={i}>
                 <VacationItem
                   id={vacation._id}
-                  existUser={existUser}
+                  userId={props.userId}
                   description={vacation.description}
                   target={vacation.target}
                   departDate={vacation.departDate}
@@ -180,10 +150,11 @@ const CartList = () => {
             To the home page:{" "}
           </Typography>
           <Button
-            href="/"
             variant="contained"
             sx={{ fontSize: { xl: 20, md: 18, xs: 15 } }}
             color="primary"
+            component={Link}
+            to="/"
           >
             HOME
           </Button>

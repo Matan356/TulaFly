@@ -52,20 +52,7 @@ const BackDrawer = (props) => {
                   }}
                   to="/auth"
                 >
-                  <ListItemText primary="SIGN UP" inset />
-                </Link>
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-              <ListItemButton divider onClick={toggleDrawer("left", false)}>
-                <Link
-                  style={{
-                    textDecoration: "none",
-                    color: "black",
-                  }}
-                  to="/about"
-                >
-                  <ListItemText primary="ABOUT US" inset />
+                  <ListItemText primary="SIGN UP" inset sx={{ ml: 8 }} />
                 </Link>
               </ListItemButton>
             </ListItem>
@@ -83,12 +70,25 @@ const BackDrawer = (props) => {
                   }}
                   to="/cart"
                 >
-                  <ListItemText primary="MY CART" inset />
+                  <ListItemText primary="MY CART" sx={{ ml: 8 }} inset />
                 </Link>
               </ListItemButton>
             </ListItem>
           </>
         )}
+        <ListItem disablePadding>
+          <ListItemButton divider onClick={toggleDrawer("left", false)}>
+            <Link
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+              to="/about"
+            >
+              <ListItemText primary="ABOUT US" inset sx={{ ml: 7 }} />
+            </Link>
+          </ListItemButton>
+        </ListItem>
         {auth.isLoggedIn && (
           <Button
             sx={{

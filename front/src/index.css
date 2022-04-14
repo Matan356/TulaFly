@@ -13,3 +13,9 @@ code {
 min-width: 55px !important;
 min-height: 55px !important;
 } 
+body{
+  background-image:url('./assets/istockphoto-467060945-612x612.jpg') ;
+  background-size: cover;
+  
+
+}

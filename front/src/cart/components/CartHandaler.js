@@ -15,7 +15,7 @@ const CartButton = (props) => {
 
   const cartHandaler = async () => {
     const vacationId = props.id;
-    const userId = props.existUser.userId;
+    const userId = props.userId;
     if (!inCart) {
       try {
         await sendRequest(

@@ -7,8 +7,12 @@ import { blue } from "@mui/material/colors";
 const SocialMedia = () => {
   return (
     <>
-      <Typography fontFamily="sans-serif" sx={{ color: "black" }}>
-        My Linkedin profile:
+      <Typography
+        fontSize={{ xl: 25, md: 18 }}
+        fontFamily="'Rubik Wet Paint', cursive"
+        sx={{ color: "black" }}
+      >
+        Linkedin:
       </Typography>
       <Button
         startIcon={
@@ -16,8 +20,12 @@ const SocialMedia = () => {
         }
         href="https://www.linkedin.com/in/matan-elgrabli/"
       ></Button>
-      <Typography fontFamily="sans-serif" sx={{ color: "black" }}>
-        My GitHub profile:{" "}
+      <Typography
+        fontSize={{ xl: 25, md: 18 }}
+        fontFamily="'Rubik Wet Paint', cursive"
+        sx={{ color: "black" }}
+      >
+        GitHub:
       </Typography>
       <Button
         startIcon={<GitIcon className="svgIcons" sx={{ color: "black" }} />}
@@ -25,20 +33,19 @@ const SocialMedia = () => {
         href="https://github.com/Matan356"
       ></Button>
 
-   
-          <Typography
-            component="h2"
-            fontFamily="fantasy"
-            align="center"
-            mr={{xs:1,md:32,xl:41}}
-            fontSize={{xs:30,md:45,xl:56}}
-            variant="h3"
-            color="black"
-            width="100%"
-            sx={{ textShadow: "2px 2px grey" }}
-          >
-            Matan's coding
-          </Typography>
+      <Typography
+        component="h2"
+        fontFamily="fantasy"
+        align="center"
+        mr={{ xs: 1, md: 32, xl: 41 }}
+        fontSize={{ xs: 29, md: 45, xl: 56 }}
+        variant="h3"
+        color="black"
+        width="100%"
+        sx={{ textShadow: "2px 2px grey" }}
+      >
+        Matan's coding
+      </Typography>
     </>
   );
 };

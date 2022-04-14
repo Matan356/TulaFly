@@ -40,7 +40,7 @@ const AllVacations = (props) => {
           </BackDrop>
         </div>
       )}
-      <Container maxWidth="xl" sx={{ mt: "10rem", mb: "8rem" }}>
+      <Container sx={{ mt: "10rem", mb: "8rem", minWidth: "100%" }}>
         <UserAvatar />
         <Grid container display="flex" justifyContent="center">
           <VacationsList

@@ -15,8 +15,7 @@ const Header = (props) => {
             height: 142,
             backgroundImage: `url(${HeaderBackground})`,
             backgroundSize: "cover",
-            justifyContent: "center"
-
+            justifyContent: "center",
           }}
         >
           <Toolbar
