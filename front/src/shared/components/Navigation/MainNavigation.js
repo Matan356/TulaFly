@@ -20,7 +20,7 @@ const MainNavigation = () => {
             fontSize={{xl:48,md:43,xs:35}}
             component="h1"
             mt={2}
-            ml={{xs:16,xl:58,md:26}}
+            ml={{xs:16,xl:60,md:26}}
             mr={{md:22}}
             paddingBottom="2rem"
             paddingTop="1rem"

@@ -24,7 +24,7 @@ const VacationItem = (props) => {
               top="0.5rem"
               textAlign="right"
               border="2px solid white"
-              bgcolor="darkseagreen"
+              bgcolor="#ffc800"
               fontFamily=" 'Jost', sans-serif"
               p={0.5}
               borderRadius={2}

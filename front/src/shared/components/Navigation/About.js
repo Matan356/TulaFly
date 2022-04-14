@@ -38,7 +38,7 @@ const About = () => {
                   A platform with the ability to track and receive requested
                   flights Offers at the lowest or most affordable prices.
                 </Typography>
-                <Typography fontSize={23} mt={2} fontFamily="'Josefin Sans', sans-serif">
+                <Typography fontSize={23} mt={2} fontFamily="'Jost', sans-serif">
                   On our website, you get offers on the selected flights
                   according to the calculation of the lowest or most affordable
                   flights.

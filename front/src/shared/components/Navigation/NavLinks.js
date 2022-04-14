@@ -18,6 +18,7 @@ const NavLinks = () => {
               border: "2px solid #ffe57f",
               color: "black",
               display: { xs: "none", md: "none", xl: "flex" },
+              ml:!auth.isLoggedIn?20:null
             }}
             component={Link}
             to="/about"

@@ -54,6 +54,8 @@ const PaymentForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a card name."
+
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -67,6 +69,8 @@ const PaymentForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_MINLENGTH(12),VALIDATOR_MAXLENGTH(12)]}
             onInput={inputHandler}
+            errorText="Please enter a card number."
+
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -80,6 +84,8 @@ const PaymentForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_DATE()]}
             onInput={inputHandler}
+            errorText="Please enter expiry date."
+
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -94,6 +100,8 @@ const PaymentForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_MINLENGTH(3),VALIDATOR_MAXLENGTH(3)]}
             onInput={inputHandler}
+            errorText="Please enter cvv number."
+            
             
           />
         </Grid>

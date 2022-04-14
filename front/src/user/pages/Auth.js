@@ -186,7 +186,16 @@ const Auth = () => {
                       type="text"
                       label="Your Name"
                       validators={[VALIDATOR_REQUIRE()]}
-                      errorText="Please enter a name."
+                      errorText="Please enter your name."
+                      onInput={inputHandler}
+                    />
+                     <Input
+                      element="input"
+                      id="lastName"
+                      type="text"
+                      label="Your Last Name"
+                      validators={[VALIDATOR_REQUIRE()]}
+                      errorText="Please enter a last name."
                       onInput={inputHandler}
                     />
                     <Input
@@ -196,15 +205,6 @@ const Auth = () => {
                       label="Your User Name"
                       validators={[VALIDATOR_REQUIRE()]}
                       errorText="Please enter a user name."
-                      onInput={inputHandler}
-                    />
-                    <Input
-                      element="input"
-                      id="lastName"
-                      type="text"
-                      label="Your Last Name"
-                      validators={[VALIDATOR_REQUIRE()]}
-                      errorText="Please enter a last name."
                       onInput={inputHandler}
                     />
                   </>

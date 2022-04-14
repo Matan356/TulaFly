@@ -8,7 +8,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 const UserAvatar = () => {
   const [loadedUsers, setLoadedUsers] = useState([]);
   const [userDet, setUserDet] = useState();
-  const { isLoading, sendRequest, clearError, error } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("userData"));
@@ -33,12 +33,7 @@ const UserAvatar = () => {
 
   return (
     <>
-      {error && (
-        <ErrorModal
-          errorText={"The details you entered are incorrect, please try again."}
-          onClear={clearError}
-        />
-      )}
+      
       {isLoading && (
         <div>
           <BackDrop open>
@@ -54,7 +49,7 @@ const UserAvatar = () => {
           ml={{ xs: 12, xl: 78, md: 45 }}
           fontSize={{ xs: 30, xl: 50, md: 40 }}
         >
-          Hello {userDet.userName}
+          Hello {userDet.userName}!
         </Typography>
       )}
     </>

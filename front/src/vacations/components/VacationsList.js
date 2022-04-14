@@ -4,12 +4,13 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import VacationItem from "./VacationItem";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
+import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
 const VacationsList = () => {
   const [userVacationsId, setUserVacationsId] = useState([]);
   const [existUser, setExistUser] = useState({});
   const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading, sendRequest ,error,clearError} = useHttpClient();
   const [userCartId, setUserCartId] = useState([]);
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
@@ -87,6 +88,12 @@ const VacationsList = () => {
   if (userVacationsId.length === 0) {
     return (
       <>
+      {error && (
+        <ErrorModal
+          errorText={"The details you entered are incorrect, please try again."}
+          onClear={clearError}
+        />
+      )}
         {isLoading && (
           <div>
             <BackDrop open>

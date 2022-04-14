@@ -69,6 +69,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a first name."
+
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -82,6 +84,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a last name."
+
           />
         </Grid>
         <Grid item xs={12}>
@@ -95,6 +99,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter an address."
+
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -108,6 +114,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter an city."
+            
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -119,6 +127,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a state."
+
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -132,6 +142,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a zip postal code."
+
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -145,6 +157,8 @@ const AddressForm = (props) => {
             variant="standard"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
+            errorText="Please enter a country."
+
           />
         </Grid>
       </Grid>
