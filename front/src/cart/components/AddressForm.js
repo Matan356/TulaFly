@@ -125,6 +125,7 @@ const AddressForm = (props) => {
             label="State/Province/Region"
             fullWidth
             variant="standard"
+            autoComplete="shipping state"
             validators={[VALIDATOR_REQUIRE()]}
             onInput={inputHandler}
             errorText="Please enter a state."
@@ -162,12 +163,13 @@ const AddressForm = (props) => {
           />
         </Grid>
       </Grid>
-      <Grid item ml={{md:90,xl:90,xs:31}} mt={2} xs={3} md={1}>
+      <Grid item  >
         <Button
           variant="contained"
           type="submit"
           onClick={onTrigger}
           disabled={!formState.isValid}
+          sx={{ml:{md:90,xl:90,xs:31},mt:2, xs:3, md:1}}
         >
           Next
         </Button>

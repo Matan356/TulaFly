@@ -32,19 +32,19 @@ const BackDrawer = (props) => {
   };
 
   const list = (anchor) => (
-      <nav >
-        <List
-          sx={{ width: "30vh", textAlign: "center" }}
-          
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              NAVIGATION LIST
-            </ListSubheader>
-          }
-        >
-          {!auth.isLoggedIn && (
+    <nav>
+      <List
+        sx={{ width: "30vh", textAlign: "center" }}
+        subheader={
+          <ListSubheader component="div" id="nested-list-subheader">
+            NAVIGATION LIST
+          </ListSubheader>
+        }
+      >
+        {!auth.isLoggedIn && (
+          <>
             <ListItem disablePadding>
-              <ListItemButton divider  onClick={toggleDrawer("left", false)}>
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
                 <Link
                   style={{
                     textDecoration: "none",
@@ -52,56 +52,61 @@ const BackDrawer = (props) => {
                   }}
                   to="/auth"
                 >
-                  <ListItemText  primary="SIGN UP" inset />
+                  <ListItemText primary="SIGN UP" inset />
                 </Link>
               </ListItemButton>
             </ListItem>
-          )}
-          <ListItem disablePadding >
-            <ListItemButton divider  onClick={toggleDrawer("left", false)} >
-              <Link
-              
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-                to="/cart"
-              >
-                <ListItemText primary="MY CART" inset  />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton divider  onClick={toggleDrawer("left", false)}>
-              <Link
-                style={{
-                  textDecoration: "none",
-                  color: "black",
-                }}
-                to="/about"
-              >
-                <ListItemText primary="ABOUT US" inset  />
-              </Link>
-            </ListItemButton>
-          </ListItem>
-          {auth.isLoggedIn && (
-            <Button
-              sx={{
-                color: "white",
-                background: "black",
-                ml: "0.5rem",
-                marginTop: "2rem",
-              }}
-              variant="contained"
-              component={Link}
-              onClick={auth.logout}
-              to="/"
-            >
-              LOG OUT
-            </Button>
-          )}
-        </List>
-      </nav>
+            <ListItem disablePadding>
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/about"
+                >
+                  <ListItemText primary="ABOUT US" inset />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+        {auth.isLoggedIn && (
+          <>
+            {" "}
+            <ListItem disablePadding>
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/cart"
+                >
+                  <ListItemText primary="MY CART" inset />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+        {auth.isLoggedIn && (
+          <Button
+            sx={{
+              color: "white",
+              background: "black",
+              ml: "0.5rem",
+              marginTop: "2rem",
+            }}
+            variant="contained"
+            component={Link}
+            onClick={auth.logout}
+            to="/"
+          >
+            LOG OUT
+          </Button>
+        )}
+      </List>
+    </nav>
   );
 
   return (
@@ -111,15 +116,14 @@ const BackDrawer = (props) => {
           <IconButton
             onClick={toggleDrawer("left", true)}
             aria-label="menu"
-            sx={{ color: "black" ,fontSize:"3rem"}}
-            
+            sx={{ color: "black", fontSize: "3rem" }}
           >
             <ListSharpIcon
-            className="svgIcons"
-            fontSize="3rem"
+              className="svgIcons"
+              fontSize="3rem"
               sx={{
                 border: "0.25rem solid black",
-                borderRadius:"50%",
+                borderRadius: "50%",
                 padding: "1px",
                 margin: "1px",
               }}

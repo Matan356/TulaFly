@@ -15,7 +15,7 @@ const CardButton = (props) => {
 
   const followHandaler = async () => {
     const vacationId = props.id;
-    const userId = props.existUser.userId;
+    const userId = props.userId;
     if (!inFollow) {
       try {
         await sendRequest(

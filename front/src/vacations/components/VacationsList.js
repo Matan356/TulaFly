@@ -6,11 +6,9 @@ import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 
-const VacationsList = () => {
+const VacationsList = (props) => {
   const [userVacationsId, setUserVacationsId] = useState([]);
-  const [existUser, setExistUser] = useState({});
-  const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading, sendRequest ,error,clearError} = useHttpClient();
+  const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const [userCartId, setUserCartId] = useState([]);
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
@@ -18,53 +16,34 @@ const VacationsList = () => {
 
   useEffect(() => {
     const fetchVacations = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}main`
-        );
-        setLoadedVacations(responseData.vacation);
-      } catch (err) {}
-    };
-    fetchVacations();
-  }, [sendRequest]);
-
-  useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("userData"));
-    if (user) {
-      setExistUser(user);
-    }
-  }, []);
-
-  useEffect(() => {
-    const fetchVacations = async () => {
-      if (existUser.userId) {
+      if (props.userId) {
         try {
           const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}main/${existUser.userId}`
+            `${process.env.REACT_APP_BACKEND_URL}main/${props.userId}`
           );
           setUserVacationsId(responseData.userVacations);
         } catch (err) {}
       }
     };
     fetchVacations();
-  }, [sendRequest, existUser]);
+  }, [sendRequest, props.userId]);
 
   useEffect(() => {
     const fetchVacations = async () => {
-      if (existUser.userId) {
+      if (props.userId) {
         try {
           const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}cart/${existUser.userId}`
+            `${process.env.REACT_APP_BACKEND_URL}cart/${props.userId}`
           );
           setUserCartId(responseData.userCart);
         } catch (err) {}
       }
     };
     fetchVacations();
-  }, [sendRequest, existUser]);
+  }, [sendRequest, props.userId]);
 
   useEffect(() => {
-    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
+    const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
       userVacationsId.includes(_id)
     );
     setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
@@ -83,17 +62,19 @@ const VacationsList = () => {
         Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
     );
     setDays(calcDays);
-  }, [loadedVacations, userVacationsId, calcLowPrice]);
+  }, [props.loadedVacations, userVacationsId, calcLowPrice]);
 
   if (userVacationsId.length === 0) {
     return (
       <>
-      {error && (
-        <ErrorModal
-          errorText={"The details you entered are incorrect, please try again."}
-          onClear={clearError}
-        />
-      )}
+        {error && (
+          <ErrorModal
+            errorText={
+              "The details you entered are incorrect, please try again."
+            }
+            onClear={clearError}
+          />
+        )}
         {isLoading && (
           <div>
             <BackDrop open>
@@ -101,14 +82,93 @@ const VacationsList = () => {
             </BackDrop>
           </div>
         )}
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations.map((vacation) => (
-            <>
-              <Grid item xs={12} md={6} xl={4}>
+        {props.loadedVacations.map((vacation, i) => (
+          <Grid item xs={12} md={6} xl={4} key={i}>
+            <VacationItem
+              id={vacation._id}
+               userId={props.userId}
+              description={vacation.description}
+              target={vacation.target}
+              departDate={vacation.departDate}
+              returnDate={vacation.returnDate}
+              image={vacation.image}
+              price={vacation.price}
+              inFollow={false}
+              ml={"50%"}
+              width={"50%"}
+            />
+          </Grid>
+        ))}
+      </>
+    );
+  } else {
+    return (
+      <>
+        {props.loadedVacations
+          .filter(
+            (
+              { _id } // yes follow yes cart
+            ) => userVacationsId.includes(_id) && userCartId.includes(_id)
+          )
+          .map((vacation, i) => (
+            <Grid item xs={12} md={6} xl={4} key={i}>
+              <VacationItem
+                 userId={props.userId}
+                id={vacation._id}
+                description={vacation.description}
+                target={vacation.target}
+                departDate={vacation.departDate}
+                returnDate={vacation.returnDate}
+                image={vacation.image}
+                price={vacation.price}
+                inFollow={true}
+                inCart={true}
+                ml={"50%"}
+                width={"50%"}
+                calc={calcLowPrice}
+                minPay={minPay}
+                days={days[i]}
+              />
+            </Grid>
+          ))}
+        {props.loadedVacations
+          .filter(
+            (
+              { _id } // yes follow no cart
+            ) => userVacationsId.includes(_id) && !userCartId.includes(_id)
+          )
+          .map((vacation, i) => (
+            <Grid item xs={12} md={6} xl={4} key={i}>
+              <VacationItem
+                 userId={props.userId}
+                id={vacation._id}
+                description={vacation.description}
+                target={vacation.target}
+                departDate={vacation.departDate}
+                returnDate={vacation.returnDate}
+                image={vacation.image}
+                price={vacation.price}
+                inFollow={true}
+                inCart={false}
+                ml={"50%"}
+                width={"50%"}
+                calc={calcLowPrice}
+                minPay={minPay}
+                days={days[i]}
+              />
+            </Grid>
+          ))}
+         {props.loadedVacations
+          .filter(
+            (
+              { _id } // no follow yes cart
+            ) => !userVacationsId.includes(_id) && userCartId.includes(_id)
+          )
+          .map((vacation,i) => (
+              <Grid item xs={12} md={6} xl={4} key={i}>
                 <VacationItem
-                  id={vacation._id}
-                  existUser={existUser}
+                 userId={props.userId}
+                 id={vacation._id}
                   description={vacation.description}
                   target={vacation.target}
                   departDate={vacation.departDate}
@@ -116,139 +176,36 @@ const VacationsList = () => {
                   image={vacation.image}
                   price={vacation.price}
                   inFollow={false}
+                  inCart={true}
                   ml={"50%"}
                   width={"50%"}
                 />
               </Grid>
-            </>
           ))}
-      </>
-    );
-  } else {
-    return (
-      <>
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(
-              (
-                { _id } // yes follow yes cart
-              ) => userVacationsId.includes(_id) && userCartId.includes(_id)
-            )
-            .map((vacation, i) => (
-              <>
-                <Grid item xs={12} md={6} xl={4}>
-                  <VacationItem
-                    key={vacation._id}
-                    existUser={existUser}
-                    id={vacation._id}
-                    description={vacation.description}
-                    target={vacation.target}
-                    departDate={vacation.departDate}
-                    returnDate={vacation.returnDate}
-                    image={vacation.image}
-                    price={vacation.price}
-                    inFollow={true}
-                    inCart={true}
-                    ml={"50%"}
-                    width={"50%"}
-                    calc={calcLowPrice}
-                    minPay={minPay}
-                    days={days[i]}
-                  />
-                </Grid>
-              </>
-            ))}
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(
-              (
-                { _id } // yes follow no cart
-              ) => userVacationsId.includes(_id) && !userCartId.includes(_id)
-            )
-            .map((vacation, i) => (
-              <>
-                <Grid item xs={12} md={6} xl={4}>
-                  <VacationItem
-                    key={vacation._id}
-                    existUser={existUser}
-                    id={vacation._id}
-                    description={vacation.description}
-                    target={vacation.target}
-                    departDate={vacation.departDate}
-                    returnDate={vacation.returnDate}
-                    image={vacation.image}
-                    price={vacation.price}
-                    inFollow={true}
-                    inCart={false}
-                    ml={"50%"}
-                    width={"50%"}
-                    calc={calcLowPrice}
-                    minPay={minPay}
-                    days={days[i]}
-                  />
-                </Grid>
-              </>
-            ))}
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(
-              (
-                { _id } // no follow yes cart
-              ) => !userVacationsId.includes(_id) && userCartId.includes(_id)
-            )
-            .map((vacation) => (
-              <>
-                <Grid item xs={12} md={6} xl={4}>
-                  <VacationItem
-                    key={vacation._id}
-                    existUser={existUser}
-                    id={vacation._id}
-                    description={vacation.description}
-                    target={vacation.target}
-                    departDate={vacation.departDate}
-                    returnDate={vacation.returnDate}
-                    image={vacation.image}
-                    price={vacation.price}
-                    inFollow={false}
-                    inCart={true}
-                    ml={"50%"}
-                    width={"50%"}
-                  />
-                </Grid>
-              </>
-            ))}
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(
-              (
-                { _id } // no follow no cart
-              ) => !userVacationsId.includes(_id) && !userCartId.includes(_id)
-            )
-            .map((vacation) => (
-              <>
-                <Grid item xs={12} md={6} xl={4}>
-                  <VacationItem
-                    key={vacation._id}
-                    existUser={existUser}
-                    id={vacation._id}
-                    description={vacation.description}
-                    target={vacation.target}
-                    departDate={vacation.departDate}
-                    returnDate={vacation.returnDate}
-                    image={vacation.image}
-                    price={vacation.price}
-                    inFollow={false}
-                    inCart={false}
-                    ml={"50%"}
-                    width={"50%"}
-                  />
-                </Grid>
-              </>
-            ))}
+        {props.loadedVacations
+          .filter(
+            (
+              { _id } // no follow no cart
+            ) => !userVacationsId.includes(_id) && !userCartId.includes(_id)
+          )
+          .map((vacation,i) => (
+              <Grid item xs={12} md={6} xl={4} key={i}>
+                <VacationItem
+                 userId={props.userId}
+                 id={vacation._id}
+                  description={vacation.description}
+                  target={vacation.target}
+                  departDate={vacation.departDate}
+                  returnDate={vacation.returnDate}
+                  image={vacation.image}
+                  price={vacation.price}
+                  inFollow={false}
+                  inCart={false}
+                  ml={"50%"}
+                  width={"50%"}
+                />
+              </Grid>
+          ))}
       </>
     );
   }

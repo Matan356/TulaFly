@@ -5,33 +5,32 @@ import CardButton from "./FollowHandaler";
 import CartButton from "../../cart/components/CartHandaler";
 
 const VacationItem = (props) => {
-
   return (
     <>
       <Card
         variant="elevation"
         elevation={10}
         sx={{ m: "1rem", position: "relative", height: "14rem" }}
-        key={props.id}
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
-          {props.price === props.minPay * props.days && props.price !== props.calc && (
-            <Typography
-              right={15}
-              fontSize="1.2rem"
-              position="absolute"
-              top="0.5rem"
-              textAlign="right"
-              border="2px solid white"
-              bgcolor="#ffc800"
-              fontFamily=" 'Jost', sans-serif"
-              p={0.5}
-              borderRadius={2}
-            >
-              affordable price
-            </Typography>
-          )}
+          {props.price === props.minPay * props.days &&
+            props.price !== props.calc &&  (
+              <Typography
+                right={15}
+                fontSize="1.2rem"
+                position="absolute"
+                top="0.5rem"
+                textAlign="right"
+                border="2px solid white"
+                bgcolor="#ffc800"
+                fontFamily=" 'Jost', sans-serif"
+                p={0.5}
+                borderRadius={2}
+              >
+                affordable price
+              </Typography>
+            )}
           {props.price === props.calc && (
             <Typography
               right={15}
@@ -113,10 +112,12 @@ const VacationItem = (props) => {
               icon={props.icon}
               buttonText={props.buttonText}
               inFollow={props.inFollow}
+              userId={props.userId}
             />
           )}
 
           <CartButton
+            userId={props.userId}
             id={props.id}
             ml={props.ml}
             width={props.width}

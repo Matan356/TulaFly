@@ -64,7 +64,7 @@ const Input = (props) => {
         fullWidth
         name={props.name}
         label={props.label}
-        autoComplete
+        autoComplete={props.autoComplete}
       />
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </>

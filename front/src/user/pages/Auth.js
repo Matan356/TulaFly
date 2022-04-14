@@ -187,6 +187,7 @@ const Auth = () => {
                       label="Your Name"
                       validators={[VALIDATOR_REQUIRE()]}
                       errorText="Please enter your name."
+                      autoComplete="First Name"
                       onInput={inputHandler}
                     />
                      <Input
@@ -197,6 +198,8 @@ const Auth = () => {
                       validators={[VALIDATOR_REQUIRE()]}
                       errorText="Please enter a last name."
                       onInput={inputHandler}
+                      autoComplete="Last Name"
+
                     />
                     <Input
                       element="input"
@@ -206,6 +209,8 @@ const Auth = () => {
                       validators={[VALIDATOR_REQUIRE()]}
                       errorText="Please enter a user name."
                       onInput={inputHandler}
+                      autoComplete="User Name"
+
                     />
                   </>
                 )}
@@ -218,6 +223,8 @@ const Auth = () => {
                     validators={[VALIDATOR_EMAIL()]}
                     errorText="Please enter a valid email address."
                     onInput={inputHandler}
+                    autoComplete="Email Address"
+
                   />
                   <Input
                     element="input"
@@ -227,6 +234,8 @@ const Auth = () => {
                     validators={[VALIDATOR_MINLENGTH(6)]}
                     errorText="Please enter a valid password, at least 6 characters."
                     onInput={inputHandler}
+                    autoComplete="valid password"
+
                   />
                 </>
 

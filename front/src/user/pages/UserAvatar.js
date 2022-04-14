@@ -1,7 +1,6 @@
 import { Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
-import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 
@@ -14,7 +13,6 @@ const UserAvatar = () => {
     const user = JSON.parse(localStorage.getItem("userData"));
     if (user) {
       const res = loadedUsers.find((x) => x.id === user.userId);
-      console.log("res :" + JSON.stringify(res));
       setUserDet(res);
     }
   }, [loadedUsers]);
@@ -47,7 +45,7 @@ const UserAvatar = () => {
           color="#346eeb"
           variant="h1"
           ml={{ xs: 12, xl: 78, md: 45 }}
-          fontSize={{ xs: 30, xl: 50, md: 40 }}
+          fontSize={{ xs: 30, xl: 45, md: 40 }}
         >
           Hello {userDet.userName}!
         </Typography>

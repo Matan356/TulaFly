@@ -106,9 +106,9 @@ const PaymentForm = (props) => {
           />
         </Grid>
 
-        <Grid item ml={{md:80,xs:19}} xs={3} md={1}>
+        <Grid item >
 
-            <Button onClick={props.handleBack}>Back</Button>
+            <Button onClick={props.handleBack} sx={{ml:{md:80,xs:19}, xs:3 ,md:1}}>Back</Button>
             </Grid>
         <Grid item xs={3} md={1}>
           <Button

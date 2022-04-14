@@ -73,6 +73,13 @@ const CartList = () => {
   if (userVacationsId.length !== 0) {
     return (
       <>
+        {isLoading && (
+          <div>
+            <BackDrop open>
+              <LoadingSpiner />
+            </BackDrop>
+          </div>
+        )}
         <Typography
           fontFamily="'Cabin Sketch', cursi"
           variant="h2"
@@ -100,6 +107,37 @@ const CartList = () => {
             Complete the purchase
           </Button>
         </Grid>
+
+        {!isLoading &&
+          loadedVacations &&
+          loadedVacations
+            .filter(({ _id }) => userVacationsId.includes(_id))
+            .map((vacation, i) => (
+              <Grid item xs={12} md={6} xl={6} key={i}>
+                <VacationItem
+                  id={vacation._id}
+                  existUser={existUser}
+                  description={vacation.description}
+                  target={vacation.target}
+                  departDate={vacation.departDate}
+                  returnDate={vacation.returnDate}
+                  image={vacation.image}
+                  price={vacation.price}
+                  inCart={true}
+                  ml={null}
+                  width={"100%"}
+                  hiden={true}
+                  calc={calcLowPrice}
+                  minPay={minPay}
+                  days={days[i]}
+                />
+              </Grid>
+            ))}
+      </>
+    );
+  } else {
+    return (
+      <>
         {isLoading && (
           <div>
             <BackDrop open>
@@ -107,39 +145,6 @@ const CartList = () => {
             </BackDrop>
           </div>
         )}
-        {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(({ _id }) => userVacationsId.includes(_id))
-            .map((vacation, i) => (
-              <>
-                <Grid item xs={12} md={6} xl={6}>
-                  <VacationItem
-                    key={vacation._id}
-                    id={vacation._id}
-                    existUser={existUser}
-                    description={vacation.description}
-                    target={vacation.target}
-                    departDate={vacation.departDate}
-                    returnDate={vacation.returnDate}
-                    image={vacation.image}
-                    price={vacation.price}
-                    inCart={true}
-                    ml={null}
-                    width={"100%"}
-                    hiden={true}
-                    calc={calcLowPrice}
-                    minPay={minPay}
-                    days={days[i]}
-                  />
-                </Grid>
-              </>
-            ))}
-      </>
-    );
-  } else {
-    return (
-      <>
         <Container maxWidth="xl" sx={{ textAlign: "center", mt: "3rem" }}>
           <Typography
             fontFamily="'Cabin Sketch', cursi"
