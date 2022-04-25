@@ -8,12 +8,24 @@ import { useAuth } from "./shared/hooks/auth-hook";
 import { AuthContext } from "./shared/context/auth-context";
 import LoadingSpiner from "./shared/components/UIElements/LoadingSpiner";
 import UserCart from "./cart/pages/UserCart";
-import Checkout from './cart/pages/Checkout'
+import Checkout from "./cart/pages/Checkout";
+import DashBoard from './admin/pages/DashBoard'
+import Users from "./user/pages/Users";
+import AddVacation from "./vacations/pages/AddVacation";
 
 function App() {
-  const { token, login, logout, userId } = useAuth();
+  const { token, login, logout, userId, isAdmin } = useAuth();
   let routes;
-  if (token) {
+  if (token&& isAdmin) {
+    routes = (
+      <>
+        <Route path="/" element={<AllVacations />}></Route>
+        <Route path="/dashboard" element={<DashBoard />}></Route>
+        <Route path="/users" element={<Users />}></Route>
+        <Route path="/addVacation" element={<AddVacation />}></Route>
+      </>
+    );
+  } else if (token) {
     routes = (
       <>
         <Route path="/" element={<AllVacations />}></Route>
@@ -42,6 +54,7 @@ function App() {
           userId: userId,
           login: login,
           logout: logout,
+          isAdmin: isAdmin,
         }}
       >
         <MainNavigation />

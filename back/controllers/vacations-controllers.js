@@ -136,14 +136,17 @@ const deleteVacation = async (req, res, next) => {
 };
 
 const addVacationToUser = async (req, res, next) => {
-  const userId = req.params.uid; 
+  const userId = req.params.uid;
   const vacationId = req.params.vid;
+  if (userId === false) {
+    console.log("userId :" + userId);
+  }
 
   let existVacation = await Vacation.findById(vacationId);
   let existUser = await User.findById(userId);
 
   const userVacation = existUser.vacations.find((x) => x == existVacation.id);
- 
+
   if (userVacation == vacationId) {
     const error = new HttpError(
       "Could not follow for this vacation, you are already following.",
@@ -153,7 +156,6 @@ const addVacationToUser = async (req, res, next) => {
   }
 
   try {
-    
     existUser.vacations.push(existVacation);
     await existUser.save();
   } catch (err) {
@@ -162,7 +164,6 @@ const addVacationToUser = async (req, res, next) => {
       500
     );
     return next(error);
-    
   }
 
   res.status(200).json({ existUser });

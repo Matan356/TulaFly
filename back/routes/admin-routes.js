@@ -1,14 +1,11 @@
 const express = require("express");
 const { check } = require("express-validator");
-const usersControllers = require("../controllers/users-controllers");
-
 const vacationControllers = require("../controllers/vacations-controllers");
 const checkAuth = require("../middleware/check-auth");
 const checkAdmin = require("../middleware/checkAdmin");
 const router = express.Router();
 
 router.use(checkAuth);
-
 
 router.post(
   "/:aid/",
