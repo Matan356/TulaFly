@@ -34,7 +34,7 @@ const BackDrawer = (props) => {
   const list = (anchor) => (
     <nav>
       <List
-        sx={{ width: "30vh", textAlign: "center" }}
+        sx={{ width: { xl: 300, md: 250, xs: 220 }, textAlign: "center" }}
         subheader={
           <ListSubheader component="div" id="nested-list-subheader">
             NAVIGATION LIST
@@ -52,13 +52,17 @@ const BackDrawer = (props) => {
                   }}
                   to="/auth"
                 >
-                  <ListItemText primary="SIGN UP" inset sx={{ ml: 8 }} />
+                  <ListItemText
+                    primary="SIGN IN"
+                    inset
+                    sx={{ ml: { xl: 8, md: 2 } }}
+                  />
                 </Link>
               </ListItemButton>
             </ListItem>
           </>
         )}
-        {auth.isLoggedIn && (
+        {auth.isLoggedIn && !auth.isAdmin && (
           <>
             {" "}
             <ListItem disablePadding>
@@ -70,25 +74,94 @@ const BackDrawer = (props) => {
                   }}
                   to="/cart"
                 >
-                  <ListItemText primary="MY CART" sx={{ ml: 8 }} inset />
+                  <ListItemText
+                    primary="MY CART"
+                    sx={{ ml: { xl: 5, md: 2 } }}
+                    inset
+                  />
                 </Link>
               </ListItemButton>
             </ListItem>
           </>
         )}
-        <ListItem disablePadding>
-          <ListItemButton divider onClick={toggleDrawer("left", false)}>
-            <Link
-              style={{
-                textDecoration: "none",
-                color: "black",
-              }}
-              to="/about"
-            >
-              <ListItemText primary="ABOUT US" inset sx={{ ml: 7 }} />
-            </Link>
-          </ListItemButton>
-        </ListItem>
+        {!auth.isAdmin && (
+          <ListItem disablePadding>
+            <ListItemButton divider onClick={toggleDrawer("left", false)}>
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to="/about"
+              >
+                <ListItemText
+                  primary="ABOUT US"
+                  inset
+                  sx={{ ml: { xl: 5, md: 2 } }}
+                />
+              </Link>
+            </ListItemButton>
+          </ListItem>
+        )}
+        {auth.isLoggedIn && auth.isAdmin && (
+          <>
+            {" "}
+            <ListItem disablePadding>
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/dashboard"
+                >
+                  <ListItemText
+                    primary="DASHBOARD"
+                    inset
+                    sx={{ ml: { xl: 5, md: 2 } }}
+                  />
+                </Link>
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              {" "}
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/addVacation"
+                >
+                  <ListItemText
+                    primary="ADD VACATION"
+                    inset
+                    sx={{ ml: { xl: 3, md: 2 } }}
+                  />
+                </Link>
+              </ListItemButton>
+            </ListItem>{" "}
+            <ListItem>
+              {" "}
+              <ListItemButton divider onClick={toggleDrawer("left", false)}>
+                <Link
+                  style={{
+                    textDecoration: "none",
+                    color: "black",
+                  }}
+                  to="/users"
+                >
+                  <ListItemText
+                    primary="USERS"
+                    inset
+                    sx={{ ml: { xl: 3, md: 2 } }}
+                  />
+                </Link>
+              </ListItemButton>
+            </ListItem>{" "}
+          </>
+        )}
+
         {auth.isLoggedIn && (
           <Button
             sx={{

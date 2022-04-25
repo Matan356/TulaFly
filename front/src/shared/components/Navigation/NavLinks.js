@@ -5,27 +5,30 @@ import { AuthContext } from "../../context/auth-context";
 
 const NavLinks = () => {
   const auth = useContext(AuthContext);
-
   return (
     <>
       <Grid container spacing={4} flexDirection="row">
-        <Grid item>
-          <Button
-            variant="outlined"
-            color="inherit"
-            sx={{
-              fontFamily: "'Roboto Slab', serif",
-              border: "2px solid #ffe57f",
-              color: "black",
-              display: { xs: "none", md: "none", xl: "flex" },
-              ml:!auth.isLoggedIn?20:null
-            }}
-            component={Link}
-            to="/about"
-          >
-            ABOUT US
-          </Button>
-        </Grid>
+        {!auth.isAdmin && (
+          <>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  fontFamily: "'Roboto Slab', serif",
+                  border: "2px solid #ffe57f",
+                  color: "black",
+                  display: { xs: "none", md: "none", xl: "flex" },
+                  ml: !auth.isLoggedIn ? 20 : null,
+                }}
+                component={Link}
+                to="/about"
+              >
+                ABOUT US
+              </Button>
+            </Grid>{" "}
+          </>
+        )}
         {!auth.isLoggedIn && (
           <>
             <Grid item>
@@ -47,8 +50,63 @@ const NavLinks = () => {
             </Grid>
           </>
         )}
+        {auth.isLoggedIn && auth.isAdmin && (
+          <>
+            {" "}
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  display: { xs: "none", md: "none", xl: "flex" },
+                  fontFamily: "'Roboto Slab', serif",
+                  border: "2px solid #ffe57f",
+                  color: "black",
+                }}
+                component={Link}
+                to="/dashboard"
+              >
+                DASHBORD
+              </Button>
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  display: { xs: "none", md: "none", xl: "flex" },
+                  fontFamily: "'Roboto Slab', serif",
+                  border: "2px solid #ffe57f",
+                  color: "black",
+                }}
+                component={Link}
+                to="/addVacation"
+              >
+                ADD VACATIONS
+              </Button>
+              
+            </Grid>
+            <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  display: { xs: "none", md: "none", xl: "flex" },
+                  fontFamily: "'Roboto Slab', serif",
+                  border: "2px solid #ffe57f",
+                  color: "black",
+                }}
+                component={Link}
+                to="/users"
+              >
+                USERS
+              </Button>
+              
+            </Grid>
+          </>
+        )}
 
-        {auth.isLoggedIn && (
+        {!auth.isAdmin && auth.isLoggedIn && (
           <>
             <Grid item>
               <Button
@@ -66,6 +124,10 @@ const NavLinks = () => {
                 MY CART
               </Button>
             </Grid>
+          </>
+        )}
+        {auth.isLoggedIn && (
+          <>
             <Grid item>
               <Button
                 sx={{
