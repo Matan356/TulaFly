@@ -1,10 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Card, CardMedia, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import CardButton from "./FollowHandaler";
 import CartButton from "../../cart/components/CartHandaler";
+import { AuthContext } from "../../shared/context/auth-context";
+import DeleteVacation from "./DeleteVacation";
+import UpdateVacation from "./UpdateVacation";
 
 const VacationItem = (props) => {
+  const auth = useContext(AuthContext);
   return (
     <>
       <Card
@@ -14,8 +18,10 @@ const VacationItem = (props) => {
       >
         <CardMedia component="img" image={props.image} />
         <Box ml={1}>
+        {auth.isAdmin && <DeleteVacation userId={props.userId} vacationId={props.id}/>}
+        {auth.isAdmin && <UpdateVacation userId={props.userId} vacationId={props.id}/>}
           {props.price === props.minPay * props.days &&
-            props.price !== props.calc &&  (
+            props.price !== props.calc && (
               <Typography
                 right={15}
                 fontSize="1.2rem"
@@ -105,7 +111,7 @@ const VacationItem = (props) => {
           </Typography>
         </Box>
         <Box>
-          {!props.hiden && (
+          {!props.hiden && !auth.isAdmin && (
             <CardButton
               id={props.id}
               existUser={props.existUser}
@@ -115,17 +121,19 @@ const VacationItem = (props) => {
               userId={props.userId}
             />
           )}
-
-          <CartButton
-            userId={props.userId}
-            id={props.id}
-            ml={props.ml}
-            width={props.width}
-            existUser={props.existUser}
-            icon={props.icon}
-            buttonText={props.buttonText}
-            inCart={props.inCart}
-          />
+          {!auth.isAdmin && (
+            <CartButton
+              userId={props.userId}
+              id={props.id}
+              ml={props.ml}
+              width={props.width}
+              existUser={props.existUser}
+              icon={props.icon}
+              buttonText={props.buttonText}
+              inCart={props.inCart}
+            />
+          )}
+       
         </Box>
       </Card>
     </>

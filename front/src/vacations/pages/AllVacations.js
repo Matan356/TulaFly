@@ -1,6 +1,6 @@
 import { Container, Grid } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
-import UserAvatar from "../../user/pages/UserAvatar";
+import UserAvatar from "../../user/components/UserAvatar";
 import VacationsList from "../components/VacationsList";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
