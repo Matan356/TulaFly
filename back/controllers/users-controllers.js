@@ -112,7 +112,6 @@ const login = async (req, res, next) => {
     );
     return next(error);
   }
-
   if (!existingUser) {
     const error = new HttpError(
       "This user does not exist in the system, please register first.",
@@ -159,6 +158,7 @@ const login = async (req, res, next) => {
     userId: existingUser.id,
     email: existingUser.email,
     token: token,
+    isAdmin:existingUser.isAdmin
   });
 };
 
