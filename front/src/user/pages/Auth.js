@@ -83,9 +83,15 @@ const Auth = () => {
             "Content-Type": "application/json",
           }
         );
-        auth.login(responseData.userId, responseData.token);
         console.log("logged in");
+        let experation;
+        if(responseData.isAdmin){
+          auth.login(responseData.userId, responseData.token,experation,responseData.isAdmin);
+          navigate("/dashboard");
+        }else{
+          auth.login(responseData.userId, responseData.token);
         navigate("/");
+        }
       } catch (err) {}
     } else {
       try {
