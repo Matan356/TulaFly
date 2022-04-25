@@ -65,6 +65,7 @@ const Input = (props) => {
         name={props.name}
         label={props.label}
         autoComplete={props.autoComplete}
+        color={!inputState.isValid && inputState.isTouched ? "error":"success"}
       />
       {!inputState.isValid && inputState.isTouched && <p>{props.errorText}</p>}
     </>

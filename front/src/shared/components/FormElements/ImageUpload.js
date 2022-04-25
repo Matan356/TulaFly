@@ -1,8 +1,7 @@
+import { Button } from "@mui/material";
 import React, { useRef, useState, useEffect } from "react";
 import Resizer from "react-image-file-resizer";
 
-import Button from "./Button";
-import "./ImageUpload.css";
 
 const ImageUpload = (props) => {
   const [file, setFile] = useState();
@@ -69,11 +68,10 @@ const ImageUpload = (props) => {
         onChange={pickedHandler}
       />
       <div>
-        <div >
-          {previewUrl && <img src={previewUrl} alt="Preview" />}
-          {!previewUrl && <p>Please pick an image.</p>}
+        <div style={{maxWidth:10}} >
+          {previewUrl && <img width={300} src={previewUrl} alt="Preview" />}
         </div>
-        <Button type="button" onClick={pickImageHandler}>
+        <Button variant="contained" color="secondary" type="button" onClick={pickImageHandler}>
           PICK IMAGE
         </Button>
       </div>
