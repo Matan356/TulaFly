@@ -11,9 +11,9 @@ const userSchema = new Schema({
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 6 },
   vacations: [
-    { type: mongoose.Types.ObjectId, required: false, ref: "Vacatin" },
+    { type: mongoose.Types.ObjectId, required: false, ref: "Vacation" },
   ],
-  cart: [{ type: mongoose.Types.ObjectId, required: false, ref: "Vacatin" }],
+  cart: [{ type: mongoose.Types.ObjectId, required: false, ref: "Vacation" }],
 });
 
 module.exports = mongoose.model("User", userSchema);
