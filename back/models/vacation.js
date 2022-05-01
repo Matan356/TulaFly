@@ -8,7 +8,9 @@ const vacationSchema = new Schema({
   departDate: { type: String, required: true },
   returnDate: { type: String, required: true },
   image: { type: String, required: true },
-  price: { type: Number, required: true }
+  price: { type: Number, required: true },
+  followers: [{ type: mongoose.Types.ObjectId, required: false, ref: "User" }],
+
 });
 
 module.exports = mongoose.model("Vacation", vacationSchema);
