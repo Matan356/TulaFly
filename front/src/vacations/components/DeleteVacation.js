@@ -33,10 +33,10 @@ const DeleteVacation = (props) => {
         variant="contained"
         color="error"
         sx={{ position: "absolute", top: 0, left: 0 }}
-        endIcon={<DeleteForeverIcon />}
+        endIcon={<DeleteForeverIcon sx={{mr:1}} />}
         onClick={deleteHandaler}
       >
-        Delete
+        
       </Button>
     </>
   );
