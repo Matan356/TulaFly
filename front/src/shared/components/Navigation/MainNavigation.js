@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
@@ -8,8 +8,13 @@ import { Typography } from "@mui/material";
 import { amber } from "@mui/material/colors";
 
 import SocialMedia from "./SocialMedia";
+import { AuthContext } from "../../context/auth-context";
 
 const MainNavigation = () => {
+
+
+  const {isAdmin} = useContext(AuthContext)
+
   return (
     <React.Fragment>
       <header>
@@ -20,7 +25,7 @@ const MainNavigation = () => {
             fontSize={{xl:48,md:43,xs:35}}
             component="h1"
             mt={2}
-            ml={{xs:16,xl:60,md:26}}
+            ml={!isAdmin?{xs:16,xl:60,md:26}:{xl:80,md:27,xs:18}}
             mr={{md:22}}
             paddingBottom="2rem"
             paddingTop="1rem"

@@ -8,8 +8,6 @@ import DeleteVacation from "./DeleteVacation";
 import UpdateVacation from "./UpdateVacation";
 
 const VacationItem = (props) => {
-  // const { setLoadedVacations } = props;
-
   const auth = useContext(AuthContext);
   return (
     <>

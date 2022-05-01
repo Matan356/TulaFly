@@ -10,16 +10,21 @@ const Users = () => {
   const { isLoading, sendRequest } = useHttpClient();
 
   useEffect(() => {
+    let active = true;
     const fetchUsers = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main/users`
         );
-
-        setLoadedUsers(responseData.users);
+        if (active) {
+          setLoadedUsers(responseData.users);
+        }
       } catch (err) {}
     };
     fetchUsers();
+    return () => {
+      active = false;
+    };
   }, [sendRequest]);
 
   return (

@@ -11,7 +11,6 @@ import {
   Container,
 } from "@mui/material";
 
-// import Orders from "../components/Orders";
 import ChartCom from "../components/ChartCom";
 
 function Copyright(props) {

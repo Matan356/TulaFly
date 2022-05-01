@@ -14,15 +14,22 @@ const AllVacations = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
+    let active = true;
     const fetchAllVacations = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main`
         );
-        setLoadedVacations(responseData.vacation);
+        if (active) {
+          setLoadedVacations(responseData.vacation);
+        }
       } catch (err) {}
     };
     fetchAllVacations();
+
+    return () => {
+      active = false;
+    };
   }, [sendRequest]);
 
   return (

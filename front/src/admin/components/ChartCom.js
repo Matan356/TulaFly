@@ -15,25 +15,30 @@ const ChartCom = () => {
   const { isLoading, sendRequest } = useHttpClient();
 
   useEffect(() => {
+    let active = true;
     const fetchVacations = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main`
         );
-        setLoadedVacations(responseData.vacation);
+        if (active) {
+          setLoadedVacations(responseData.vacation);
+        }
       } catch (err) {}
     };
     fetchVacations();
+    return () => {
+      active = false;
+    };
   }, [sendRequest]);
 
   const data = [];
 
   if (loadedVacations) {
-    loadedVacations.forEach((x, i) => {
-
+    loadedVacations.forEach((x) => {
       data.push({
-        argument:x.followers.length !== 0 &&x.target,
-        value:x.followers.length
+        argument: x.followers.length !== 0 && x.target,
+        value: x.followers.length,
       });
     });
   }

@@ -13,17 +13,17 @@ const CartList = (props) => {
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
   const [days, setDays] = useState();
-  const  {fetchCartVacations,userCartId,fetching} = useContext(context)
+  const  {fetchCartVacations,userCartId,fetching,loadedVacations} = useContext(context)
 
   useEffect(() => {
     if (!fetching) {
       return;
     }
     fetchCartVacations();
-  }, [fetching, fetchCartVacations,props.loadedVacations]);
+  }, [fetching, fetchCartVacations]);
 
   useEffect(() => {
-    const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
+    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
       userCartId.includes(_id)
     );
     setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
@@ -41,7 +41,7 @@ const CartList = (props) => {
         Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
     );
     setDays(calcDays);
-  }, [props.loadedVacations, userCartId, calcLowPrice]);
+  }, [loadedVacations, userCartId, calcLowPrice]);
 
   if (userCartId.length !== 0) {
     return (
@@ -73,8 +73,8 @@ const CartList = (props) => {
         </Grid>
 
         {!isLoading &&
-          props.loadedVacations &&
-          props.loadedVacations
+          loadedVacations &&
+          loadedVacations
             .filter(({ _id }) => userCartId.includes(_id))
             .map((vacation, i) => (
               <Grid item xs={12} md={6} xl={6} key={vacation._id}>
