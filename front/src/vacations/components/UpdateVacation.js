@@ -6,14 +6,14 @@ import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { useForm } from "../../shared/hooks/form-hook";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import SystemUpdateAltIcon from '@mui/icons-material/SystemUpdateAlt';
+import SystemUpdateAltIcon from "@mui/icons-material/SystemUpdateAlt";
 import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validatores";
 
 const UpdateVacation = (props) => {
-  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const navigate = useNavigate();
   const [formMode, setFormMode] = useState();
   const [formState, inputHandler] = useForm(
@@ -80,16 +80,17 @@ const UpdateVacation = (props) => {
         variant="contained"
         color="primary"
         sx={{ position: "absolute", top: 0, right: 0 }}
-        endIcon={<SystemUpdateAltIcon />}
+        endIcon={<SystemUpdateAltIcon sx={{mr:1}} />}
         onClick={formModeHandaler}
+        
       >
-        UPDATE
+        
       </Button>
       {!isLoading && formMode && (
         <BackDrop open>
           <Paper variant="outlined" sx={{ mt: 25, mb: 12 }}>
             <Typography component="h1" variant="h4" align="center" p={3}>
-              Add Vacation
+              Update Vacation
             </Typography>
             <Grid container spacing={3} p={3}>
               <Grid item xs={12} sm={6}>
@@ -106,7 +107,20 @@ const UpdateVacation = (props) => {
                   errorText="Please enter a Description."
                 />
               </Grid>
-
+              <Grid item xs={12} sm={6}>
+                <Input
+                  required
+                  id="price"
+                  name="price"
+                  label="price"
+                  fullWidth
+                  autoComplete="Add Price"
+                  variant="standard"
+                  validators={[VALIDATOR_REQUIRE()]}
+                  onInput={inputHandler}
+                  errorText="Please enter an price."
+                />
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <Input
                   required
@@ -135,20 +149,7 @@ const UpdateVacation = (props) => {
                   errorText="Please enter a Return Date."
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <Input
-                  required
-                  id="price"
-                  name="price"
-                  label="price"
-                  fullWidth
-                  autoComplete="Add Price"
-                  variant="standard"
-                  validators={[VALIDATOR_REQUIRE()]}
-                  onInput={inputHandler}
-                  errorText="Please enter an price."
-                />
-              </Grid>
+
               <Grid item xs={12} sm={6}>
                 <Button
                   onClick={VacationUpdateSubmitHandler}
