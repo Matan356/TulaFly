@@ -8,13 +8,13 @@ import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { AuthContext } from "../../shared/context/auth-context";
 
-const AllVacations = (props) => {
+const AllVacations = () => {
   const [loadedVacations, setLoadedVacations] = useState([]);
   const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    const fetchVacations = async () => {
+    const fetchAllVacations = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main`
@@ -22,7 +22,7 @@ const AllVacations = (props) => {
         setLoadedVacations(responseData.vacation);
       } catch (err) {}
     };
-    fetchVacations();
+    fetchAllVacations();
   }, [sendRequest]);
 
   return (

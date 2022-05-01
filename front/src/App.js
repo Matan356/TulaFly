@@ -12,6 +12,7 @@ import Checkout from "./cart/pages/Checkout";
 import DashBoard from './admin/pages/DashBoard'
 import Users from "./user/pages/Users";
 import AddVacation from "./vacations/pages/AddVacation";
+import UserContext from './shared/context/UserContext'
 
 function App() {
   const { token, login, logout, userId, isAdmin } = useAuth();
@@ -57,6 +58,7 @@ function App() {
           isAdmin: isAdmin,
         }}
       >
+
         <MainNavigation />
         <main style={{ marginTop: "6%" }}>
           <Suspense
@@ -65,8 +67,10 @@ function App() {
                 <LoadingSpiner />
               </div>
             }
-          >
+            >
+            <UserContext>
             <Routes>{routes}</Routes>
+              </UserContext>
           </Suspense>
         </main>
       </AuthContext.Provider>

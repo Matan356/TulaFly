@@ -1,70 +1,67 @@
 import { Grid } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import VacationItem from "./VacationItem";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import context from "../../shared/context/context";
 
 const VacationsList = (props) => {
-  const [userVacationsId, setUserVacationsId] = useState([]);
-  const { isLoading, sendRequest, error, clearError } = useHttpClient();
-  const [userCartId, setUserCartId] = useState([]);
+  const { isLoading, error, clearError } = useHttpClient();
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
   const [days, setDays] = useState();
+  const {
+    userVacations,
+    userCartId,
+    fetchVacations,
+    fetching,
+    fetchCartVacations,
+  } = useContext(context);
 
   useEffect(() => {
-    const fetchVacations = async () => {
-      if (props.userId) {
-        try {
-          const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}main/${props.userId}`
-          );
-          setUserVacationsId(responseData.userVacations);
-        } catch (err) {}
-      }
-    };
+    if (!fetching) {
+      return;
+    }
     fetchVacations();
-  }, [sendRequest, props.userId]);
+  }, [fetching, fetchVacations]);
 
   useEffect(() => {
-    const fetchVacations = async () => {
-      if (props.userId) {
-        try {
-          const responseData = await sendRequest(
-            `${process.env.REACT_APP_BACKEND_URL}cart/${props.userId}`
-          );
-          setUserCartId(responseData.userCart);
-        } catch (err) {}
-      }
-    };
-    fetchVacations();
-  }, [sendRequest, props.userId]);
-
+    if (!fetching) {
+      return;
+    }
+    fetchCartVacations();
+  }, [fetching, fetchCartVacations]);
+  
   useEffect(() => {
-    const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
-      userVacationsId.includes(_id)
-    );
-    setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
+    if (userVacations) {
+      const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
+        userVacations.includes(_id)
+      );
 
-    const minPay = Math.min(
-      ...userFollowingVacations.map(
+      setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
+
+      const minPayment = Math.min(
+        ...userFollowingVacations.map(
+          (x) =>
+            x.price /
+            (Number(x.returnDate.split("/", 1)) -
+              Number(x.departDate.split("/", 1)))
+        )
+      );
+
+      setMinPay(minPayment);
+      const calcDays = userFollowingVacations.map(
         (x) =>
-          x.price /
-          (Number(x.returnDate.split(".", 1)) -
-            Number(x.departDate.split(".", 1)))
-      )
-    );
-    setMinPay(minPay);
-    const calcDays = userFollowingVacations.map(
-      (x) =>
-        Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
-    );
-    setDays(calcDays);
-  }, [props.loadedVacations, userVacationsId, calcLowPrice]);
+          Number(x.returnDate.split("/", 1)) -
+          Number(x.departDate.split("/", 1))
+      );
+      setDays(calcDays);
+    }
+  }, [props.loadedVacations, userVacations, calcLowPrice]);
 
-  if (userVacationsId.length === 0) {
+  if (userVacations?.length === 0 && props.loadedVacations) {
     return (
       <>
         {error && (
@@ -83,10 +80,10 @@ const VacationsList = (props) => {
           </div>
         )}
         {props.loadedVacations.map((vacation, i) => (
-          <Grid item xs={12} md={6} xl={4} key={i}>
+          <Grid item xs={12} md={6} xl={4} key={vacation._id}>
             <VacationItem
               id={vacation._id}
-               userId={props.userId}
+              userId={props.userId}
               description={vacation.description}
               target={vacation.target}
               departDate={vacation.departDate}
@@ -94,8 +91,8 @@ const VacationsList = (props) => {
               image={vacation.image}
               price={vacation.price}
               inFollow={false}
-              ml={"50%"}
-              width={"50%"}
+              ml={{ xs: "52%", xl: "70%" }}
+              width={{ xs: "48%", xl: "30%" }}
             />
           </Grid>
         ))}
@@ -108,12 +105,12 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // yes follow yes cart
-            ) => userVacationsId.includes(_id) && userCartId.includes(_id)
+            ) => userVacations.includes(_id) && userCartId.includes(_id)
           )
           .map((vacation, i) => (
-            <Grid item xs={12} md={6} xl={4} key={i}>
+            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
               <VacationItem
-                 userId={props.userId}
+                userId={props.userId}
                 id={vacation._id}
                 description={vacation.description}
                 target={vacation.target}
@@ -123,8 +120,8 @@ const VacationsList = (props) => {
                 price={vacation.price}
                 inFollow={true}
                 inCart={true}
-                ml={"50%"}
-                width={"50%"}
+                ml={{ xs: "52%", xl: "70%" }}
+                width={{ xs: "48%", xl: "30%" }}
                 calc={calcLowPrice}
                 minPay={minPay}
                 days={days[i]}
@@ -135,12 +132,12 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // yes follow no cart
-            ) => userVacationsId.includes(_id) && !userCartId.includes(_id)
+            ) => userVacations.includes(_id) && !userCartId.includes(_id)
           )
           .map((vacation, i) => (
-            <Grid item xs={12} md={6} xl={4} key={i}>
+            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
               <VacationItem
-                 userId={props.userId}
+                userId={props.userId}
                 id={vacation._id}
                 description={vacation.description}
                 target={vacation.target}
@@ -150,61 +147,61 @@ const VacationsList = (props) => {
                 price={vacation.price}
                 inFollow={true}
                 inCart={false}
-                ml={"50%"}
-                width={"50%"}
+                ml={{ xs: "52%", xl: "70%" }}
+                width={{ xs: "48%", xl: "30%" }}
                 calc={calcLowPrice}
                 minPay={minPay}
                 days={days[i]}
               />
             </Grid>
           ))}
-         {props.loadedVacations
+        {props.loadedVacations
           .filter(
             (
               { _id } // no follow yes cart
-            ) => !userVacationsId.includes(_id) && userCartId.includes(_id)
+            ) => !userVacations.includes(_id) && userCartId.includes(_id)
           )
-          .map((vacation,i) => (
-              <Grid item xs={12} md={6} xl={4} key={i}>
-                <VacationItem
-                 userId={props.userId}
-                 id={vacation._id}
-                  description={vacation.description}
-                  target={vacation.target}
-                  departDate={vacation.departDate}
-                  returnDate={vacation.returnDate}
-                  image={vacation.image}
-                  price={vacation.price}
-                  inFollow={false}
-                  inCart={true}
-                  ml={"50%"}
-                  width={"50%"}
-                />
-              </Grid>
+          .map((vacation, i) => (
+            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+              <VacationItem
+                userId={props.userId}
+                id={vacation._id}
+                description={vacation.description}
+                target={vacation.target}
+                departDate={vacation.departDate}
+                returnDate={vacation.returnDate}
+                image={vacation.image}
+                price={vacation.price}
+                inFollow={false}
+                inCart={true}
+                ml={{ xs: "52%", xl: "70%" }}
+                width={{ xs: "48%", xl: "30%" }}
+              />
+            </Grid>
           ))}
         {props.loadedVacations
           .filter(
             (
               { _id } // no follow no cart
-            ) => !userVacationsId.includes(_id) && !userCartId.includes(_id)
+            ) => !userVacations.includes(_id) && !userCartId.includes(_id)
           )
-          .map((vacation,i) => (
-              <Grid item xs={12} md={6} xl={4} key={i}>
-                <VacationItem
-                 userId={props.userId}
-                 id={vacation._id}
-                  description={vacation.description}
-                  target={vacation.target}
-                  departDate={vacation.departDate}
-                  returnDate={vacation.returnDate}
-                  image={vacation.image}
-                  price={vacation.price}
-                  inFollow={false}
-                  inCart={false}
-                  ml={"50%"}
-                  width={"50%"}
-                />
-              </Grid>
+          .map((vacation, i) => (
+            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+              <VacationItem
+                userId={props.userId}
+                id={vacation._id}
+                description={vacation.description}
+                target={vacation.target}
+                departDate={vacation.departDate}
+                returnDate={vacation.returnDate}
+                image={vacation.image}
+                price={vacation.price}
+                inFollow={false}
+                inCart={false}
+                ml={{ xs: "52%", xl: "70%" }}
+                width={{ xs: "48%", xl: "30%" }}
+              />
+            </Grid>
           ))}
       </>
     );

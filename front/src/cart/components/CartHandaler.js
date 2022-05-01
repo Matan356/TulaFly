@@ -1,4 +1,4 @@
-import React, {  useState } from "react";
+import React, { useContext, useState } from "react";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -7,11 +7,13 @@ import BackDrop from "../../shared/components/UIElements/BackDrop";
 import { useAuth } from "../../shared/hooks/auth-hook";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
+import context from "../../shared/context/context";
 
 const CartButton = (props) => {
   const [inCart, setInCart] = useState(props.inCart);
   const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const { token } = useAuth();
+  const  {fetchCartVacations} = useContext(context)
 
   const cartHandaler = async () => {
     const vacationId = props.id;
@@ -25,6 +27,7 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
+        fetchCartVacations()
         setInCart(true);
       } catch (err) {}
     } else {
@@ -36,13 +39,21 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
+        fetchCartVacations()
         setInCart(false);
       } catch (err) {}
     }
   };
   return (
     <>
-      {error && <ErrorModal errorText={"You will not be able to add this vacation to the cart, you will need to register / log in first."} onClear={clearError} />}
+      {error && (
+        <ErrorModal
+          errorText={
+            "You will not be able to add this vacation to the cart, you will need to register / log in first."
+          }
+          onClear={clearError}
+        />
+      )}
 
       {isLoading && token && (
         <div>
@@ -57,6 +68,7 @@ const CartButton = (props) => {
           position: "absolute",
           top: "12.1rem",
           width: props.width,
+          fontFamily: " 'Libre Baskerville', serif",
           ml: props.ml,
           bgcolor: "#42a5f5",
           borderColor: "ActiveBorder",
