@@ -138,9 +138,6 @@ const deleteVacation = async (req, res, next) => {
 const addVacationToUser = async (req, res, next) => {
   const userId = req.params.uid;
   const vacationId = req.params.vid;
-  if (userId === false) {
-    console.log("userId :" + userId);
-  }
 
   let existVacation = await Vacation.findById(vacationId);
   let existUser = await User.findById(userId);
@@ -157,7 +154,9 @@ const addVacationToUser = async (req, res, next) => {
 
   try {
     existUser.vacations.push(existVacation);
+    existVacation.followers.push(existUser)
     await existUser.save();
+    await existVacation.save();
   } catch (err) {
     const error = new HttpError(
       "Something went wrong, could not follow to this vacation.",
@@ -186,6 +185,11 @@ const deleteVacationFromUser = async (req, res, next) => {
     updatedUser = await User.findByIdAndUpdate(
       userId,
       { $pull: { vacations: vacationId } },
+      { new: true }
+    );
+   await Vacation.findByIdAndUpdate(
+      vacationId,
+      { $pull: { followers: userId } },
       { new: true }
     );
   } catch (err) {

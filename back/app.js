@@ -9,9 +9,9 @@ const cartRoutes = require("./routes/cart-routes");
 const adminRoutes = require("./routes/admin-routes");
 
 const app = express();
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(cors());
-app.use(bodyParser.json());
-
 app.use("/main", usersRoutes);
 app.use("/vacations", vacationsRoutes);
 app.use("/cart", cartRoutes);
