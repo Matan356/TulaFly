@@ -13,20 +13,18 @@ import {
 
 import ChartCom from "../components/ChartCom";
 
-function Copyright(props) {
+function Copyright() {
   return (
     <Typography
       variant="body2"
       color="text.secondary"
       align="center"
-      {...props}
     >
       {"Copyright © "}
       <Link color="inherit" href="http://localhost:3000/">
         Your Website
-      </Link>{" "}
+      </Link>
       {new Date().getFullYear()}
-      {"."}
     </Typography>
   );
 }

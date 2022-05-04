@@ -15,21 +15,15 @@ const ChartCom = () => {
   const { isLoading, sendRequest } = useHttpClient();
 
   useEffect(() => {
-    let active = true;
     const fetchVacations = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main`
         );
-        if (active) {
           setLoadedVacations(responseData.vacation);
-        }
       } catch (err) {}
     };
     fetchVacations();
-    return () => {
-      active = false;
-    };
   }, [sendRequest]);
 
   const data = [];

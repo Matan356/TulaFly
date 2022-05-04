@@ -2,8 +2,6 @@ import { Grid } from "@material-ui/core";
 import { Button, Container, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import BackDrop from "../../shared/components/UIElements/BackDrop";
-import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import context from "../../shared/context/context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import VacationItem from "../../vacations/components/VacationItem";
@@ -13,18 +11,22 @@ const CartList = (props) => {
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
   const [days, setDays] = useState();
-  const  {fetchCartVacations,userCartId,fetching,loadedVacations} = useContext(context)
+  const  {fetchCartVacations,cartVacations} = useContext(context)
+
+  const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
-    if (!fetching) {
-      return;
+    if (!fetching) return
+      fetchCartVacations();
+    
+    return ()=>{
+      setFetching(false)
     }
-    fetchCartVacations();
   }, [fetching, fetchCartVacations]);
 
   useEffect(() => {
-    const userFollowingVacations = loadedVacations.filter(({ _id }) =>
-      userCartId.includes(_id)
+    const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
+      cartVacations.includes(_id)
     );
     setCalcLowPrice(Math.min(...userFollowingVacations.map((x) => x.price)));
     const minPay = Math.min(
@@ -41,18 +43,12 @@ const CartList = (props) => {
         Number(x.returnDate.split(".", 1)) - Number(x.departDate.split(".", 1))
     );
     setDays(calcDays);
-  }, [loadedVacations, userCartId, calcLowPrice]);
+  }, [props.loadedVacations, cartVacations, calcLowPrice]);
 
-  if (userCartId.length !== 0) {
+  if (cartVacations.length !== 0) {
     return (
       <>
-        {isLoading && (
-          <div>
-            <BackDrop open>
-              <LoadingSpiner />
-            </BackDrop>
-          </div>
-        )}
+
 
         <Grid item xl={12} md={12} xs={12}>
           <Button
@@ -73,9 +69,9 @@ const CartList = (props) => {
         </Grid>
 
         {!isLoading &&
-          loadedVacations &&
-          loadedVacations
-            .filter(({ _id }) => userCartId.includes(_id))
+          props.loadedVacations &&
+          props.loadedVacations
+            .filter(({ _id }) => cartVacations.includes(_id))
             .map((vacation, i) => (
               <Grid item xs={12} md={6} xl={6} key={vacation._id}>
                 <VacationItem
@@ -102,13 +98,6 @@ const CartList = (props) => {
   } else {
     return (
       <>
-        {isLoading && (
-          <div>
-            <BackDrop open>
-              <LoadingSpiner />
-            </BackDrop>
-          </div>
-        )}
         <Container maxWidth="xl" sx={{ textAlign: "center", mt: "3rem" }}>
           <Typography
             fontFamily="'Cabin Sketch', cursi"

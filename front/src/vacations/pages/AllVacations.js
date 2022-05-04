@@ -7,6 +7,7 @@ import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { AuthContext } from "../../shared/context/auth-context";
+import { socket } from "../../shared/context/socket";
 
 const AllVacations = () => {
   const [loadedVacations, setLoadedVacations] = useState([]);
@@ -14,23 +15,29 @@ const AllVacations = () => {
   const auth = useContext(AuthContext);
 
   useEffect(() => {
-    let active = true;
     const fetchAllVacations = async () => {
       try {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}main`
         );
-        if (active) {
-          setLoadedVacations(responseData.vacation);
-        }
+        setLoadedVacations(responseData.vacation);
       } catch (err) {}
     };
     fetchAllVacations();
-
-    return () => {
-      active = false;
-    };
   }, [sendRequest]);
+
+  socket.on("updateUserVacations",(res)=>{
+    console.log(res);  
+    // const fetchAllVacations = async () => {
+    //   try {
+    //     const responseData = await sendRequest(
+    //       `${process.env.REACT_APP_BACKEND_URL}main`
+    //     );
+    //     setLoadedVacations(responseData.vacation);
+    //   } catch (err) {}
+    // };
+    // fetchAllVacations();
+  })
 
   return (
     <>
@@ -48,7 +55,7 @@ const AllVacations = () => {
         </div>
       )}
       <Container sx={{ mt: "10rem", mb: "8rem", minWidth: "100%" }}>
-        <UserAvatar />
+      {auth.isLoggedIn &&   <UserAvatar />}
         <Grid container display="flex" justifyContent="center">
           <VacationsList
             loadedVacations={loadedVacations}

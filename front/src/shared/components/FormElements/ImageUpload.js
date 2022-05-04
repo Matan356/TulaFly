@@ -44,9 +44,10 @@ const ImageUpload = (props) => {
         512,
         512,
         "JPEG",
-        100,
+        90,
         0,
         (uri) => {
+          console.log(uri);
           resolve(uri);
         },
         "base64"

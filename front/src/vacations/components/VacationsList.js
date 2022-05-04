@@ -12,28 +12,29 @@ const VacationsList = (props) => {
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
   const [days, setDays] = useState();
-  const {
-    userVacations,
-    userCartId,
-    fetchVacations,
-    fetching,
-    fetchCartVacations,
-  } = useContext(context);
+  const { userVacations, cartVacations, fetchUserVacations, fetchCartVacations } =
+    useContext(context);
+  const [fetching, setfetching] = useState({ cart: true, follow: true });
 
   useEffect(() => {
-    if (!fetching) {
-      return;
-    }
-    fetchVacations();
-  }, [fetching, fetchVacations]);
+    if (!fetching.follow) return;
+
+    fetchUserVacations();
+    return () => {
+      setfetching({ follow: false });
+    };
+  }, [fetching.follow, fetchUserVacations]);
 
   useEffect(() => {
-    if (!fetching) {
+    if (!fetching.cart) {
       return;
     }
     fetchCartVacations();
-  }, [fetching, fetchCartVacations]);
-  
+    return () => {
+      setfetching({ cart: false });
+    };
+  }, [fetching.cart, fetchCartVacations]);
+
   useEffect(() => {
     if (userVacations) {
       const userFollowingVacations = props.loadedVacations.filter(({ _id }) =>
@@ -105,7 +106,7 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // yes follow yes cart
-            ) => userVacations.includes(_id) && userCartId.includes(_id)
+            ) => userVacations.includes(_id) && cartVacations.includes(_id)
           )
           .map((vacation, i) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>
@@ -132,7 +133,7 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // yes follow no cart
-            ) => userVacations.includes(_id) && !userCartId.includes(_id)
+            ) => userVacations.includes(_id) && !cartVacations.includes(_id)
           )
           .map((vacation, i) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>
@@ -159,7 +160,7 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // no follow yes cart
-            ) => !userVacations.includes(_id) && userCartId.includes(_id)
+            ) => !userVacations.includes(_id) && cartVacations.includes(_id)
           )
           .map((vacation, i) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>
@@ -183,7 +184,7 @@ const VacationsList = (props) => {
           .filter(
             (
               { _id } // no follow no cart
-            ) => !userVacations.includes(_id) && !userCartId.includes(_id)
+            ) => !userVacations.includes(_id) && !cartVacations.includes(_id)
           )
           .map((vacation, i) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>

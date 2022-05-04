@@ -1,23 +1,25 @@
 import React, { Suspense } from "react";
 import { Route, Routes } from "react-router-dom";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
-import AllVacations from "./vacations/pages/AllVacations";
-import About from "./shared/components/Navigation/About";
-import Auth from "./user/pages/Auth";
 import { useAuth } from "./shared/hooks/auth-hook";
 import { AuthContext } from "./shared/context/auth-context";
 import LoadingSpiner from "./shared/components/UIElements/LoadingSpiner";
-import UserCart from "./cart/pages/UserCart";
-import Checkout from "./cart/pages/Checkout";
-import DashBoard from './admin/pages/DashBoard'
-import Users from "./user/pages/Users";
-import AddVacation from "./vacations/pages/AddVacation";
-import UserContext from './shared/context/UserContext'
+import UserContext from "./shared/context/UserContext";
+import { socket, SocketContext } from "./shared/context/socket";
+
+const AllVacations = React.lazy(() => import("./vacations/pages/AllVacations"));
+const DashBoard = React.lazy(() => import("./admin/pages/DashBoard"));
+const Users = React.lazy(() => import("./user/pages/Users"));
+const AddVacation = React.lazy(() => import("./vacations/pages/AddVacation"));
+const Auth = React.lazy(() => import("./user/pages/Auth"));
+const About = React.lazy(() => import("./shared/components/Navigation/About"));
+const UserCart = React.lazy(() => import("./cart/pages/UserCart"));
+const Checkout = React.lazy(() => import("./cart/pages/Checkout"));
 
 function App() {
   const { token, login, logout, userId, isAdmin } = useAuth();
   let routes;
-  if (token&& isAdmin) {
+  if (token && isAdmin) {
     routes = (
       <>
         <Route path="/" element={<AllVacations />}></Route>
@@ -58,21 +60,22 @@ function App() {
           isAdmin: isAdmin,
         }}
       >
-
-        <MainNavigation />
-        <main style={{ marginTop: "6%" }}>
-          <Suspense
-            fallback={
-              <div>
-                <LoadingSpiner />
-              </div>
-            }
+        <SocketContext.Provider value={socket}>
+        <UserContext>
+          <MainNavigation />
+          <main style={{ marginTop: "6%" }}>
+            <Suspense
+              fallback={
+                <div>
+                  <LoadingSpiner />
+                </div>
+              }
             >
-            <UserContext>
-            <Routes>{routes}</Routes>
-              </UserContext>
-          </Suspense>
-        </main>
+              <Routes>{routes}</Routes>
+            </Suspense>
+          </main>
+        </UserContext>
+        </SocketContext.Provider>
       </AuthContext.Provider>
     </>
   );

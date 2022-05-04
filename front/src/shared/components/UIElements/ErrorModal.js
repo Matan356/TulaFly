@@ -1,9 +1,11 @@
 import { Button, Card, CardActions, Typography } from "@mui/material";
 import React from "react";
 import BackDrop from "./BackDrop";
+import ReactDOM from 'react-dom';
+
 
 const ErrorModal = (props) => {
-  return (
+  const content = (
     <>
       <BackDrop open={true} onCancel={props.onClear}>
         <Card
@@ -31,6 +33,8 @@ const ErrorModal = (props) => {
       </BackDrop>
     </>
   );
+  return ReactDOM.createPortal(content, document.getElementById('modal-hook'));
+
 };
 
 export default ErrorModal;

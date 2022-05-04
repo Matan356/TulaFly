@@ -12,6 +12,8 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validatores";
+import { socket } from './../../shared/context/socket'; 
+
 
 const AddVacation = () => {
   const { isLoading, sendRequest } = useHttpClient();
@@ -65,6 +67,7 @@ const AddVacation = () => {
           "Content-Type": "application/json",
         }
       );
+        socket.emit("adminUpdate",true)
       navigate("/");
     } catch (err) {}
   };
