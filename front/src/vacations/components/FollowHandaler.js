@@ -14,13 +14,12 @@ const CardButton = (props) => {
   const { isLoading, sendRequest, error, clearError } = useHttpClient();
   const { token } = useAuth();
   const [inFollow, setInFollow] = useState(props.inFollow);
-const {fetchVacations} = useContext(context)
+const {fetchUserVacations} = useContext(context)
 
  const vacationId = props.id;
     const userId = props.userId;
 
   const followHandaler = async () => {
-   
     if (!inFollow) {
       try {
         await sendRequest(
@@ -30,7 +29,7 @@ const {fetchVacations} = useContext(context)
             "Content-Type": "application/json",
           }
         );
-        fetchVacations()
+        fetchUserVacations()
         setInFollow(true);
       } catch (err) {}
     } else {
@@ -42,7 +41,7 @@ const {fetchVacations} = useContext(context)
             "Content-Type": "application/json",
           }
         );
-        fetchVacations()
+        fetchUserVacations()
         setInFollow(false);
 
       } catch (err) {}

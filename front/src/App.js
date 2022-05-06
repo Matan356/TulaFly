@@ -61,20 +61,20 @@ function App() {
         }}
       >
         <SocketContext.Provider value={socket}>
-        <UserContext>
-          <MainNavigation />
-          <main style={{ marginTop: "6%" }}>
-            <Suspense
-              fallback={
-                <div>
-                  <LoadingSpiner />
-                </div>
-              }
-            >
-              <Routes>{routes}</Routes>
-            </Suspense>
-          </main>
-        </UserContext>
+            <UserContext>
+              <MainNavigation />
+              <main style={{ marginTop: "6%" }}>
+                <Suspense
+                  fallback={
+                    <div>
+                      <LoadingSpiner />
+                    </div>
+                  }
+                >
+                  <Routes>{routes}</Routes>
+                </Suspense>
+              </main>
+            </UserContext>
         </SocketContext.Provider>
       </AuthContext.Provider>
     </>

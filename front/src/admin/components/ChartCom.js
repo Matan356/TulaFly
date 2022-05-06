@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Paper } from "@mui/material";
 import {
   ArgumentAxis,
@@ -9,10 +9,13 @@ import {
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
+// import UserContext from "../../shared/context/UserContext";
 
 const ChartCom = () => {
   const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading, sendRequest } = useHttpClient();
+  const { isLoading,sendRequest} = useHttpClient();
+  // const {loadedVacations,fetchAllVacations} =useContext(UserContext)
+  // const [fetching, setFetching] = useState(true)
 
   useEffect(() => {
     const fetchVacations = async () => {
@@ -26,15 +29,30 @@ const ChartCom = () => {
     fetchVacations();
   }, [sendRequest]);
 
-  const data = [];
+  // useEffect(() => {
+  //   if (!fetching) return
+  //   fetchAllVacations();
+    
+  //   return ()=>{
+  //     setFetching(false)
+  //   }
+  // }, [fetching, fetchAllVacations]);
+
+  const dataPerTarget = [];
+  const dataPerId = [];
 
   if (loadedVacations) {
     loadedVacations.forEach((x) => {
-      data.push({
+      dataPerTarget.push({
         argument: x.followers.length !== 0 && x.target,
         value: x.followers.length,
       });
+      dataPerId.push({
+        argument: x.followers.length !== 0 && x._id,
+        value: x.followers.length,
+      });
     });
+    
   }
   return (
     <>
@@ -46,7 +64,15 @@ const ChartCom = () => {
         </div>
       )}
       <Paper>
-        <Chart data={data}>
+        <Chart data={dataPerTarget}>
+          <ArgumentAxis />
+          <ValueAxis />
+
+          <BarSeries valueField="value" argumentField="argument" />
+        </Chart>
+      </Paper>
+      <Paper sx={{mt:3,mb:5}}>
+        <Chart data={dataPerId}>
           <ArgumentAxis />
           <ValueAxis />
 

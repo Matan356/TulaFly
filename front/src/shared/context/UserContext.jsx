@@ -7,11 +7,21 @@ const UserContext = (props) => {
   const { sendRequest } = useHttpClient();
   const [cartVacations, setCartVacations] = useState([])
   const [userVacations, setUserVacations] = useState([]);
+  const [loadedVacations, setLoadedVacations] = useState([])
   const auth = useContext(AuthContext);
+
+  const fetchAllVacations = async () => {
+    try {
+      const responseData = await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}main`
+      );
+      setLoadedVacations(responseData.vacation);
+    } catch (err) {}
+  };
 
     const fetchCartVacations = async () => {
       if(!auth.userId) return null
-      if(!auth.isAdmin) return null
+      if(auth.isAdmin) return null
         try {
           const responseData = await sendRequest(
             `${process.env.REACT_APP_BACKEND_URL}cart/${auth.userId}`
@@ -22,7 +32,7 @@ const UserContext = (props) => {
 
   const fetchUserVacations = async () => {
     if(!auth.userId) return null
-    if(!auth.isAdmin) return null
+    if(auth.isAdmin) return null
     try {
       const responseData = await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}main/${auth.userId}`
@@ -38,6 +48,9 @@ const UserContext = (props) => {
         userVacations,
         fetchCartVacations,
         cartVacations,
+        fetchAllVacations,
+        loadedVacations
+
       }}
     >{props.children}</Context.Provider>
   );

@@ -1,4 +1,4 @@
-import { Grid } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import React, { useContext, useEffect, useState } from "react";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import VacationItem from "./VacationItem";
@@ -12,28 +12,30 @@ const VacationsList = (props) => {
   const [calcLowPrice, setCalcLowPrice] = useState();
   const [minPay, setMinPay] = useState();
   const [days, setDays] = useState();
-  const { userVacations, cartVacations, fetchUserVacations, fetchCartVacations } =
-    useContext(context);
-  const [fetching, setfetching] = useState({ cart: true, follow: true });
+  const {
+    userVacations,
+    cartVacations,
+    fetchUserVacations,
+    fetchCartVacations,
+  } = useContext(context);
+  const [fetchingCart, setFetchingCart] = useState(true);
+  const [fetchingFollow, setFetchingFollow] = useState(true);
 
   useEffect(() => {
-    if (!fetching.follow) return;
-
+    if (!fetchingFollow) return;
     fetchUserVacations();
     return () => {
-      setfetching({ follow: false });
+      setFetchingFollow(false);
     };
-  }, [fetching.follow, fetchUserVacations]);
+  }, [fetchingFollow, fetchUserVacations]);
 
   useEffect(() => {
-    if (!fetching.cart) {
-      return;
-    }
+    if (!fetchingCart) return;
     fetchCartVacations();
     return () => {
-      setfetching({ cart: false });
+      setFetchingCart(false);
     };
-  }, [fetching.cart, fetchCartVacations]);
+  }, [fetchingCart, fetchCartVacations]);
 
   useEffect(() => {
     if (userVacations) {
@@ -80,7 +82,7 @@ const VacationsList = (props) => {
             </BackDrop>
           </div>
         )}
-        {props.loadedVacations.map((vacation, i) => (
+        {props.loadedVacations.map((vacation) => (
           <Grid item xs={12} md={6} xl={4} key={vacation._id}>
             <VacationItem
               id={vacation._id}
@@ -102,6 +104,18 @@ const VacationsList = (props) => {
   } else {
     return (
       <>
+        <Grid item xs={12} md={12} xl={12}>
+          <Typography
+            fontFamily="'Questrial', sans-serif"
+            color="#464d29"
+            variant="h1"
+            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+            textAlign="center"
+            mt={3}
+          >
+            Vacations that I follow and in the cart
+          </Typography>
+        </Grid>
         {props.loadedVacations
           .filter(
             (
@@ -129,6 +143,18 @@ const VacationsList = (props) => {
               />
             </Grid>
           ))}
+        <Grid item xs={12} md={12} xl={12}>
+          <Typography
+            fontFamily="'Questrial', sans-serif"
+            color="#464d29"
+            variant="h1"
+            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+            textAlign="center"
+            mt={3}
+          >
+            Vacations that I follow{" "}
+          </Typography>
+        </Grid>
         {props.loadedVacations
           .filter(
             (
@@ -156,13 +182,25 @@ const VacationsList = (props) => {
               />
             </Grid>
           ))}
+        <Grid item xs={12} md={12} xl={12}>
+          <Typography
+            fontFamily="'Questrial', sans-serif"
+            color="#464d29"
+            variant="h1"
+            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+            textAlign="center"
+            mt={3}
+          >
+            Vacations in the cart{" "}
+          </Typography>
+        </Grid>
         {props.loadedVacations
           .filter(
             (
               { _id } // no follow yes cart
             ) => !userVacations.includes(_id) && cartVacations.includes(_id)
           )
-          .map((vacation, i) => (
+          .map((vacation) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>
               <VacationItem
                 userId={props.userId}
@@ -180,13 +218,25 @@ const VacationsList = (props) => {
               />
             </Grid>
           ))}
+        <Grid item xs={12} md={12} xl={12}>
+          <Typography
+            fontFamily="'Questrial', sans-serif"
+            color="#464d29"
+            variant="h1"
+            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+            textAlign="center"
+            mt={3}
+          >
+            New vacations{" "}
+          </Typography>
+        </Grid>
         {props.loadedVacations
           .filter(
             (
               { _id } // no follow no cart
             ) => !userVacations.includes(_id) && !cartVacations.includes(_id)
           )
-          .map((vacation, i) => (
+          .map((vacation) => (
             <Grid item xs={12} md={6} xl={4} key={vacation._id}>
               <VacationItem
                 userId={props.userId}
