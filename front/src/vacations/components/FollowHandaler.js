@@ -1,4 +1,4 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import AddRoundedIcon from "@material-ui/icons/AddRounded";
 import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
@@ -9,17 +9,23 @@ import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import ErrorModal from "../../shared/components/UIElements/ErrorModal";
 import context from "../../shared/context/context";
 
-
 const CardButton = (props) => {
-  const { isLoading, sendRequest, error, clearError } = useHttpClient();
+  const { isLoading, sendRequest} = useHttpClient();
   const { token } = useAuth();
   const [inFollow, setInFollow] = useState(props.inFollow);
-const {fetchUserVacations} = useContext(context)
+  const { fetchUserVacations } = useContext(context);
+  const [isTouche, setIsTouche] = useState(false);
 
- const vacationId = props.id;
-    const userId = props.userId;
+  const vacationId = props.id;
+  const userId = props.userId;
 
   const followHandaler = async () => {
+    if (!token) {
+      setIsTouche(true);
+      return;
+    }else{
+      setIsTouche(false);
+    }
     if (!inFollow) {
       try {
         await sendRequest(
@@ -29,7 +35,7 @@ const {fetchUserVacations} = useContext(context)
             "Content-Type": "application/json",
           }
         );
-        fetchUserVacations()
+        fetchUserVacations();
         setInFollow(true);
       } catch (err) {}
     } else {
@@ -41,22 +47,23 @@ const {fetchUserVacations} = useContext(context)
             "Content-Type": "application/json",
           }
         );
-        fetchUserVacations()
+        fetchUserVacations();
         setInFollow(false);
-
       } catch (err) {}
     }
   };
+  const handleError = ()=>{
+    setIsTouche(false);
+  }
 
-  
   return (
     <>
-      {error && (
+      {isTouche && (
         <ErrorModal
           errorText={
             "You will not be able to follow this vacation, you will need to register / log in first."
           }
-          onClear={clearError}
+          onClear={handleError}
         />
       )}
 
@@ -72,10 +79,10 @@ const {fetchUserVacations} = useContext(context)
         sx={{
           position: "absolute",
           top: "12.1rem",
-          width: {xs:"42%",xl:"30%"},
+          width: { xs: "42%", xl: "30%" },
           bgcolor: "#ffe57f",
           textShadow: "0.3px 0.3px black",
-          fontFamily:" 'Libre Baskerville', serif",
+          fontFamily: " 'Libre Baskerville', serif",
         }}
         color="inherit"
         endIcon={!inFollow ? <AddRoundedIcon /> : <VerifiedUserIcon />}

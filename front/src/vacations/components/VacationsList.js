@@ -82,6 +82,18 @@ const VacationsList = (props) => {
             </BackDrop>
           </div>
         )}
+        <Grid item xs={12} md={12} xl={12}>
+          <Typography
+            fontFamily="'Questrial', sans-serif"
+            color="#464d29"
+            variant="h1"
+            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+            textAlign="center"
+            mt={3}
+          >
+            All our vacations{" "}
+          </Typography>
+        </Grid>
         {props.loadedVacations.map((vacation) => (
           <Grid item xs={12} md={6} xl={4} key={vacation._id}>
             <VacationItem

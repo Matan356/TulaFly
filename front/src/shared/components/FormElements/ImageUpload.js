@@ -47,7 +47,6 @@ const ImageUpload = (props) => {
         90,
         0,
         (uri) => {
-          console.log(uri);
           resolve(uri);
         },
         "base64"

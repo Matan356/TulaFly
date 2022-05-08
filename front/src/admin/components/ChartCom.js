@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React from "react";
 import { Paper } from "@mui/material";
 import {
   ArgumentAxis,
@@ -6,43 +6,18 @@ import {
   Chart,
   BarSeries,
 } from "@devexpress/dx-react-chart-material-ui";
-import { useHttpClient } from "../../shared/hooks/http-hook";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
-// import UserContext from "../../shared/context/UserContext";
+import  { useVacationsContext } from "../../shared/context/VacationsContext";
+
 
 const ChartCom = () => {
-  const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading,sendRequest} = useHttpClient();
-  // const {loadedVacations,fetchAllVacations} =useContext(UserContext)
-  // const [fetching, setFetching] = useState(true)
-
-  useEffect(() => {
-    const fetchVacations = async () => {
-      try {
-        const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}main`
-        );
-          setLoadedVacations(responseData.vacation);
-      } catch (err) {}
-    };
-    fetchVacations();
-  }, [sendRequest]);
-
-  // useEffect(() => {
-  //   if (!fetching) return
-  //   fetchAllVacations();
-    
-  //   return ()=>{
-  //     setFetching(false)
-  //   }
-  // }, [fetching, fetchAllVacations]);
-
+  const {status,vacations}= useVacationsContext()
   const dataPerTarget = [];
   const dataPerId = [];
 
-  if (loadedVacations) {
-    loadedVacations.forEach((x) => {
+
+    vacations.forEach((x) => {
       dataPerTarget.push({
         argument: x.followers.length !== 0 && x.target,
         value: x.followers.length,
@@ -53,10 +28,10 @@ const ChartCom = () => {
       });
     });
     
-  }
+    
   return (
     <>
-      {isLoading && (
+      {!status && (
         <div>
           <BackDrop open>
             <LoadingSpiner />

@@ -1,6 +1,5 @@
 import { Button, Grid, Paper, Typography } from "@mui/material";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, {  useState } from "react";
 import Input from "../../shared/components/FormElements/Input";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
@@ -11,11 +10,12 @@ import {
   VALIDATOR_MINLENGTH,
   VALIDATOR_REQUIRE,
 } from "../../shared/util/validatores";
+import { socket } from '../../shared/context/socket'; 
+
 
 const UpdateVacation = (props) => {
   const { isLoading, sendRequest } = useHttpClient();
-  const navigate = useNavigate();
-  const [formMode, setFormMode] = useState();
+  const [formMode, setFormMode] = useState(false);
   const [formState, inputHandler] = useForm(
     {
       description: {
@@ -45,6 +45,7 @@ const UpdateVacation = (props) => {
   const VacationUpdateSubmitHandler = async (event) => {
     event.preventDefault();
     if (formState.isValid) {
+      setFormMode(false);
       try {
         await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}panelAdmin/${props.userId}/${props.vacationId}`,
@@ -59,8 +60,7 @@ const UpdateVacation = (props) => {
             "Content-Type": "application/json",
           }
         );
-        setFormMode(false);
-        navigate("/");
+        socket.emit("update",true)
       } catch (err) {}
     } else {
       setFormMode(false);

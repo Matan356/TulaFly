@@ -67,10 +67,11 @@ const AddVacation = () => {
           "Content-Type": "application/json",
         }
       );
-        socket.emit("adminUpdate",true)
+        socket.emit("add",true)
       navigate("/");
     } catch (err) {}
   };
+
 
   return (
     <>

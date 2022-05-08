@@ -11,13 +11,21 @@ import context from "../../shared/context/context";
 
 const CartButton = (props) => {
   const [inCart, setInCart] = useState(props.inCart);
-  const { isLoading, sendRequest, error, clearError } = useHttpClient();
+  const { isLoading, sendRequest } =
+    useHttpClient();
   const { token } = useAuth();
-  const  {fetchCartVacations} = useContext(context)
+  const { fetchCartVacations } = useContext(context);
+  const [isTouche, setIsTouche] = useState(false);
 
+  const vacationId = props.id;
+  const userId = props.userId;
   const cartHandaler = async () => {
-    const vacationId = props.id;
-    const userId = props.userId;
+    if (!token) {
+      setIsTouche(true);
+      return;
+    } else {
+      setIsTouche(false);
+    }
     if (!inCart) {
       try {
         await sendRequest(
@@ -27,7 +35,7 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
-        fetchCartVacations()
+        fetchCartVacations();
         setInCart(true);
       } catch (err) {}
     } else {
@@ -39,19 +47,23 @@ const CartButton = (props) => {
             "Content-Type": "application/json",
           }
         );
-        fetchCartVacations()
+        fetchCartVacations();
         setInCart(false);
       } catch (err) {}
     }
   };
+  const handleError = () => {
+    setIsTouche(false);
+  };
+
   return (
     <>
-      {error && (
+      {isTouche && (
         <ErrorModal
           errorText={
             "You will not be able to add this vacation to the cart, you will need to register / log in first."
           }
-          onClear={clearError}
+          onClear={handleError}
         />
       )}
 

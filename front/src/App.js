@@ -6,6 +6,7 @@ import { AuthContext } from "./shared/context/auth-context";
 import LoadingSpiner from "./shared/components/UIElements/LoadingSpiner";
 import UserContext from "./shared/context/UserContext";
 import { socket, SocketContext } from "./shared/context/socket";
+import VacationsContextProvider from "./shared/context/VacationsContext";
 
 const AllVacations = React.lazy(() => import("./vacations/pages/AllVacations"));
 const DashBoard = React.lazy(() => import("./admin/pages/DashBoard"));
@@ -61,6 +62,7 @@ function App() {
         }}
       >
         <SocketContext.Provider value={socket}>
+          <VacationsContextProvider>
             <UserContext>
               <MainNavigation />
               <main style={{ marginTop: "6%" }}>
@@ -75,6 +77,7 @@ function App() {
                 </Suspense>
               </main>
             </UserContext>
+            </VacationsContextProvider> 
         </SocketContext.Provider>
       </AuthContext.Provider>
     </>

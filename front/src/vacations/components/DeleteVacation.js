@@ -4,11 +4,12 @@ import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
+import { socket } from '../../shared/context/socket'; 
 
 const DeleteVacation = (props) => {
   const { isLoading, sendRequest } = useHttpClient();
-
-  const deleteHandaler = async () => {
+  const deleteHandaler = async (event) => {
+    event.preventDefault();
     try {
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}panelAdmin/${props.userId}/${props.vacationId}`,
@@ -17,6 +18,7 @@ const DeleteVacation = (props) => {
           "Content-Type": "application/json",
         }
       );
+      socket.emit("delete",true)
     } catch (err) {}
   };
 
