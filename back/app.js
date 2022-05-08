@@ -44,7 +44,6 @@ const server = app.listen(port, () => {
 });
 
 const io = socket(server, {
-
   cors: {
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PATCH"],
@@ -53,12 +52,7 @@ const io = socket(server, {
 
 io.on("connection", (socket) => {
   console.log("socket connection succesful");
-  socket.on("adminUpdate", (res) => {
-    if (res) {
-      //Change the name from create Vactaion to adminUpdate
-      //if res is true pass the new array of vacations
-      console.log(res);
-      socket.emit("updateUserVacations", res);
-    }
-  });
+  socket.on('add', data => socket.broadcast.emit('add', data));
+  socket.on('update', data => socket.broadcast.emit('update', data));
+  socket.on('delete', data => socket.broadcast.emit('delete', data));
 });
