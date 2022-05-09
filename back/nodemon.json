@@ -1,9 +1,8 @@
 {
-    "env": {
-      "DB_USER": "",
-      "DB_PASSWORD": "",
-      "DB_NAME": "",
-      "JWT_KEY":""
-    }
+  "env": {
+    "DB_USER": "tula",
+    "DB_PASSWORD": "tula8505",
+    "DB_NAME": "tulafly",
+    "JWT_KEY":"supersecret_dont_share"
   }
-  
+}
