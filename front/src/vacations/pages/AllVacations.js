@@ -24,7 +24,7 @@ const AllVacations = () => {
   }, [active,fetchAllVacations]);
   return (
     <>
-      {  ((!status && !vacations) || (!status && auth.isAdmin)) &&  (
+      { !status && (
         <div>
           <BackDrop open>
             <LoadingSpiner />

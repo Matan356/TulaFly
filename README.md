@@ -7,11 +7,18 @@ The admin has a dashboard where he sees graphs and tables on the vacation data a
 
 # installation
 It is necessary to download the existing libraries in the project to run.
-Open the terminal in TulaFly/back & TulaFly/front folders and run (once in front, once in back)
+Open the terminal in `TulaFly/back & TulaFly/front` folders and run (once in front, once in back)
 ``` npm i ``` 
 # running
-Open the terminal in TulaFly / back & TulaFly / front folders and run  command (once in front, once in back)
+Open the terminal in `TulaFly/back & TulaFly/front` folders and run  command (once in front, once in back)
 ``` npm start ```
+
+## set up 
+~~ 
+Fill in the file with your mongoDB login information & jwt key
+``` back/nodemon.json ```
+Fill in the file with your server url 
+``` front/.env ```
 
 # Technologies and libraries:
 

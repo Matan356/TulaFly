@@ -64,6 +64,29 @@ const VacationsList = (props) => {
     }
   }, [props.loadedVacations, userVacations, calcLowPrice]);
 
+  const inCart_inFollow_arr = props.loadedVacations.filter(
+    (
+      { _id } // yes follow yes cart
+    ) => userVacations.includes(_id) && cartVacations.includes(_id)
+  );
+
+  const inFollow_arr = props.loadedVacations.filter(
+    (
+      { _id } // yes follow no cart
+    ) => userVacations.includes(_id) && !cartVacations.includes(_id)
+  );
+
+  const inCart_arr = props.loadedVacations.filter(
+    (
+      { _id } // no follow yes cart
+    ) => !userVacations.includes(_id) && cartVacations.includes(_id)
+  );
+  const new_arr = props.loadedVacations.filter(
+    (
+      { _id } // no follow no cart
+    ) => !userVacations.includes(_id) && !cartVacations.includes(_id)
+  );
+
   if (userVacations?.length === 0 && props.loadedVacations) {
     return (
       <>
@@ -91,7 +114,7 @@ const VacationsList = (props) => {
             textAlign="center"
             mt={3}
           >
-            All our vacations{" "}
+            All vacations
           </Typography>
         </Grid>
         {props.loadedVacations.map((vacation) => (
@@ -116,156 +139,140 @@ const VacationsList = (props) => {
   } else {
     return (
       <>
-        <Grid item xs={12} md={12} xl={12}>
-          <Typography
-            fontFamily="'Questrial', sans-serif"
-            color="#464d29"
-            variant="h1"
-            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
-            textAlign="center"
-            mt={3}
-          >
-            Vacations that I follow and in the cart
-          </Typography>
-        </Grid>
-        {props.loadedVacations
-          .filter(
-            (
-              { _id } // yes follow yes cart
-            ) => userVacations.includes(_id) && cartVacations.includes(_id)
-          )
-          .map((vacation, i) => (
-            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
-              <VacationItem
-                userId={props.userId}
-                id={vacation._id}
-                description={vacation.description}
-                target={vacation.target}
-                departDate={vacation.departDate}
-                returnDate={vacation.returnDate}
-                image={vacation.image}
-                price={vacation.price}
-                inFollow={true}
-                inCart={true}
-                ml={{ xs: "52%", xl: "70%" }}
-                width={{ xs: "48%", xl: "30%" }}
-                calc={calcLowPrice}
-                minPay={minPay}
-                days={days[i]}
-              />
-            </Grid>
-          ))}
-        <Grid item xs={12} md={12} xl={12}>
-          <Typography
-            fontFamily="'Questrial', sans-serif"
-            color="#464d29"
-            variant="h1"
-            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
-            textAlign="center"
-            mt={3}
-          >
-            Vacations that I follow{" "}
-          </Typography>
-        </Grid>
-        {props.loadedVacations
-          .filter(
-            (
-              { _id } // yes follow no cart
-            ) => userVacations.includes(_id) && !cartVacations.includes(_id)
-          )
-          .map((vacation, i) => (
-            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
-              <VacationItem
-                userId={props.userId}
-                id={vacation._id}
-                description={vacation.description}
-                target={vacation.target}
-                departDate={vacation.departDate}
-                returnDate={vacation.returnDate}
-                image={vacation.image}
-                price={vacation.price}
-                inFollow={true}
-                inCart={false}
-                ml={{ xs: "52%", xl: "70%" }}
-                width={{ xs: "48%", xl: "30%" }}
-                calc={calcLowPrice}
-                minPay={minPay}
-                days={days[i]}
-              />
-            </Grid>
-          ))}
-        <Grid item xs={12} md={12} xl={12}>
-          <Typography
-            fontFamily="'Questrial', sans-serif"
-            color="#464d29"
-            variant="h1"
-            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
-            textAlign="center"
-            mt={3}
-          >
-            Vacations in the cart{" "}
-          </Typography>
-        </Grid>
-        {props.loadedVacations
-          .filter(
-            (
-              { _id } // no follow yes cart
-            ) => !userVacations.includes(_id) && cartVacations.includes(_id)
-          )
-          .map((vacation) => (
-            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
-              <VacationItem
-                userId={props.userId}
-                id={vacation._id}
-                description={vacation.description}
-                target={vacation.target}
-                departDate={vacation.departDate}
-                returnDate={vacation.returnDate}
-                image={vacation.image}
-                price={vacation.price}
-                inFollow={false}
-                inCart={true}
-                ml={{ xs: "52%", xl: "70%" }}
-                width={{ xs: "48%", xl: "30%" }}
-              />
-            </Grid>
-          ))}
-        <Grid item xs={12} md={12} xl={12}>
-          <Typography
-            fontFamily="'Questrial', sans-serif"
-            color="#464d29"
-            variant="h1"
-            fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
-            textAlign="center"
-            mt={3}
-          >
-            New vacations{" "}
-          </Typography>
-        </Grid>
-        {props.loadedVacations
-          .filter(
-            (
-              { _id } // no follow no cart
-            ) => !userVacations.includes(_id) && !cartVacations.includes(_id)
-          )
-          .map((vacation) => (
-            <Grid item xs={12} md={6} xl={4} key={vacation._id}>
-              <VacationItem
-                userId={props.userId}
-                id={vacation._id}
-                description={vacation.description}
-                target={vacation.target}
-                departDate={vacation.departDate}
-                returnDate={vacation.returnDate}
-                image={vacation.image}
-                price={vacation.price}
-                inFollow={false}
-                inCart={false}
-                ml={{ xs: "52%", xl: "70%" }}
-                width={{ xs: "48%", xl: "30%" }}
-              />
-            </Grid>
-          ))}
+        {inCart_inFollow_arr.length > 0 && (
+          <Grid item xs={12} md={12} xl={12}>
+            <Typography
+              fontFamily="'Questrial', sans-serif"
+              color="#464d29"
+              variant="h1"
+              fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+              textAlign="center"
+              mt={3}
+            >
+              Vacations that I follow and in the cart
+            </Typography>
+          </Grid>
+        )}
+        {inCart_inFollow_arr.map((vacation, i) => (
+          <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+            <VacationItem
+              userId={props.userId}
+              id={vacation._id}
+              description={vacation.description}
+              target={vacation.target}
+              departDate={vacation.departDate}
+              returnDate={vacation.returnDate}
+              image={vacation.image}
+              price={vacation.price}
+              inFollow={true}
+              inCart={true}
+              ml={{ xs: "52%", xl: "70%" }}
+              width={{ xs: "48%", xl: "30%" }}
+              calc={calcLowPrice}
+              minPay={minPay}
+              days={days && days[i]}
+            />
+          </Grid>
+        ))}
+        {inFollow_arr.length > 0 && (
+          <Grid item xs={12} md={12} xl={12}>
+            <Typography
+              fontFamily="'Questrial', sans-serif"
+              color="#464d29"
+              variant="h1"
+              fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+              textAlign="center"
+              mt={3}
+            >
+              Vacations that I follow
+            </Typography>
+          </Grid>
+        )}
+        {inFollow_arr.map((vacation, i) => (
+          <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+            <VacationItem
+              userId={props.userId}
+              id={vacation._id}
+              description={vacation.description}
+              target={vacation.target}
+              departDate={vacation.departDate}
+              returnDate={vacation.returnDate}
+              image={vacation.image}
+              price={vacation.price}
+              inFollow={true}
+              inCart={false}
+              ml={{ xs: "52%", xl: "70%" }}
+              width={{ xs: "48%", xl: "30%" }}
+              calc={calcLowPrice}
+              minPay={minPay}
+              days={days && days[i]}
+            />
+          </Grid>
+        ))}
+        {inCart_arr.length > 0 && (
+          <Grid item xs={12} md={12} xl={12}>
+            <Typography
+              fontFamily="'Questrial', sans-serif"
+              color="#464d29"
+              variant="h1"
+              fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+              textAlign="center"
+              mt={3}
+            >
+              Vacations in the cart
+            </Typography>
+          </Grid>
+        )}
+        {inCart_arr.map((vacation) => (
+          <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+            <VacationItem
+              userId={props.userId}
+              id={vacation._id}
+              description={vacation.description}
+              target={vacation.target}
+              departDate={vacation.departDate}
+              returnDate={vacation.returnDate}
+              image={vacation.image}
+              price={vacation.price}
+              inFollow={false}
+              inCart={true}
+              ml={{ xs: "52%", xl: "70%" }}
+              width={{ xs: "48%", xl: "30%" }}
+            />
+          </Grid>
+        ))}
+        {new_arr.length > 0 && (
+          <Grid item xs={12} md={12} xl={12}>
+            <Typography
+              fontFamily="'Questrial', sans-serif"
+              color="#464d29"
+              variant="h1"
+              fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+              textAlign="center"
+              mt={3}
+            >
+              New vacations
+            </Typography>
+          </Grid>
+        )}
+        {new_arr.map((vacation) => (
+          <Grid item xs={12} md={6} xl={4} key={vacation._id}>
+            <VacationItem
+              userId={props.userId}
+              id={vacation._id}
+              description={vacation.description}
+              target={vacation.target}
+              departDate={vacation.departDate}
+              returnDate={vacation.returnDate}
+              image={vacation.image}
+              price={vacation.price}
+              inFollow={false}
+              inCart={false}
+              ml={{ xs: "52%", xl: "70%" }}
+              width={{ xs: "48%", xl: "30%" }}
+            />
+          </Grid>
+        ))}
       </>
     );
   }

@@ -55,16 +55,33 @@ const BackDrawer = (props) => {
                   <ListItemText
                     primary="SIGN IN"
                     inset
-                    sx={{ ml: { xl: 8, md: 2 } }}
+                    sx={{ ml: { xl: 5, md: 2 } }}
                   />
                 </Link>
               </ListItemButton>
             </ListItem>
           </>
         )}
+           <ListItem disablePadding>
+            <ListItemButton divider onClick={toggleDrawer("left", false)}>
+              <Link
+                style={{
+                  textDecoration: "none",
+                  color: "black",
+                }}
+                to="/"
+              >
+                <ListItemText
+                  primary="HOME"
+                  inset
+                  sx={{ ml: { xl: 6, md: 3 } }}
+                />
+              </Link>
+            </ListItemButton>
+          </ListItem>
         {auth.isLoggedIn && !auth.isAdmin && (
           <>
-            {" "}
+            
             <ListItem disablePadding>
               <ListItemButton divider onClick={toggleDrawer("left", false)}>
                 <Link
@@ -105,7 +122,7 @@ const BackDrawer = (props) => {
         )}
         {auth.isLoggedIn && auth.isAdmin && (
           <>
-            {" "}
+            
             <ListItem disablePadding>
               <ListItemButton divider onClick={toggleDrawer("left", false)}>
                 <Link
@@ -124,7 +141,7 @@ const BackDrawer = (props) => {
               </ListItemButton>
             </ListItem>
             <ListItem>
-              {" "}
+              
               <ListItemButton divider onClick={toggleDrawer("left", false)}>
                 <Link
                   style={{
@@ -140,9 +157,9 @@ const BackDrawer = (props) => {
                   />
                 </Link>
               </ListItemButton>
-            </ListItem>{" "}
+            </ListItem>
             <ListItem>
-              {" "}
+              
               <ListItemButton divider onClick={toggleDrawer("left", false)}>
                 <Link
                   style={{
@@ -158,7 +175,7 @@ const BackDrawer = (props) => {
                   />
                 </Link>
               </ListItemButton>
-            </ListItem>{" "}
+            </ListItem>
           </>
         )}
 

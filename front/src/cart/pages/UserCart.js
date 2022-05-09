@@ -3,13 +3,12 @@ import React, { useContext, useEffect, useState } from "react";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
 import { AuthContext } from "../../shared/context/auth-context";
-import context from "../../shared/context/context";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import CartList from "../components/CartList";
 
 const UserCart = () => {
   const [loadedVacations, setLoadedVacations] = useState([]);
-  const { isLoading, sendRequest, error, clearError } = useHttpClient();
+  const { isLoading, sendRequest } = useHttpClient();
   const auth = useContext(AuthContext);
 
   useEffect(() => {

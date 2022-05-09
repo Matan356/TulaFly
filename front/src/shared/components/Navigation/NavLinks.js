@@ -8,6 +8,24 @@ const NavLinks = () => {
   return (
     <>
       <Grid container spacing={4} flexDirection="row">
+      <Grid item>
+              <Button
+                variant="outlined"
+                color="inherit"
+                sx={{
+                  fontFamily: "'Roboto Slab', serif",
+                  border: "2px solid #ffe57f",
+                  color: "black",
+                  display: { xs: "none", md: "none", xl: "flex" },
+                  ml: !auth.isLoggedIn ? 5 : null,
+
+                }}
+                component={Link}
+                to="/"
+              >
+                HOME
+              </Button>
+            </Grid>
         {!auth.isAdmin && (
           <>
             <Grid item>
@@ -19,7 +37,6 @@ const NavLinks = () => {
                   border: "2px solid #ffe57f",
                   color: "black",
                   display: { xs: "none", md: "none", xl: "flex" },
-                  ml: !auth.isLoggedIn ? 20 : null,
                 }}
                 component={Link}
                 to="/about"

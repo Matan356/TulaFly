@@ -35,7 +35,6 @@ mongoose
     console.log("connection faild!");
     console.log(err.massage);
   });
-// Set up socket.io
 
 const port = process.env.PORT || 5000;
 

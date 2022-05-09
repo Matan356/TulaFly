@@ -46,7 +46,8 @@ const UsersList = (props) => {
       <TableContainer
         component={Paper}
         sx={{
-          mt: 20,
+          mt: 23,
+          mb:15
         }}
       >
         <Table aria-label="customized table">

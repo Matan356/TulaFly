@@ -11,10 +11,19 @@ import SocialMedia from "./SocialMedia";
 import { AuthContext } from "../../context/auth-context";
 
 const MainNavigation = () => {
+  const { isAdmin, isLoggedIn } = useContext(AuthContext);
 
-
-  const {isAdmin} = useContext(AuthContext)
-
+  const Responsiveness = () => {
+    if (isAdmin) {
+      return { xl: 91, md: 30, xs: 18 };
+    }
+    if (!isAdmin&& isLoggedIn) {
+      return { xs: 16, xl: 73, md: 26 };
+    }
+    if (!isAdmin && !isLoggedIn) { // 
+      return { xs: 16, xl: 62, md: 25 };
+    }
+  };
   return (
     <React.Fragment>
       <header>
@@ -22,11 +31,13 @@ const MainNavigation = () => {
           <BackDrawer />
           <Typography
             variant="caption"
-            fontSize={{xl:48,md:43,xs:35}}
+            fontSize={{ xl: 48, md: 43, xs: 35 }}
             component="h1"
             mt={2}
-            ml={!isAdmin?{xs:16,xl:60,md:26}:{xl:80,md:27,xs:18}}
-            mr={{md:22}}
+            ml={
+              Responsiveness()
+            }
+            mr={{ md: 22 }}
             paddingBottom="2rem"
             paddingTop="1rem"
             fontFamily=" 'Abril Fatface', cursive"

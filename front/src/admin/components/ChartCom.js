@@ -1,5 +1,5 @@
 import React from "react";
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import {
   ArgumentAxis,
   ValueAxis,
@@ -8,27 +8,24 @@ import {
 } from "@devexpress/dx-react-chart-material-ui";
 import BackDrop from "../../shared/components/UIElements/BackDrop";
 import LoadingSpiner from "../../shared/components/UIElements/LoadingSpiner";
-import  { useVacationsContext } from "../../shared/context/VacationsContext";
-
+import { useVacationsContext } from "../../shared/context/VacationsContext";
 
 const ChartCom = () => {
-  const {status,vacations}= useVacationsContext()
+  const { status, vacations } = useVacationsContext();
   const dataPerTarget = [];
   const dataPerId = [];
 
-
-    vacations.forEach((x) => {
-      dataPerTarget.push({
-        argument: x.followers.length !== 0 && x.target,
-        value: x.followers.length,
-      });
-      dataPerId.push({
-        argument: x.followers.length !== 0 && x._id,
-        value: x.followers.length,
-      });
+  vacations.forEach((x) => {
+    dataPerTarget.push({
+      argument: x.followers.length !== 0 && x.target,
+      value: x.followers.length,
     });
-    
-    
+    dataPerId.push({
+      argument: x.target,
+      value: x.followers.length,
+    });
+  });
+
   return (
     <>
       {!status && (
@@ -38,6 +35,17 @@ const ChartCom = () => {
           </BackDrop>
         </div>
       )}
+      <Typography
+        fontFamily="'Questrial', sans-serif"
+        color="#464d29"
+        variant="h1"
+        fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+        textAlign="center"
+        // mt={3}
+        mb={3}
+      >
+        Vacations with followers
+      </Typography>
       <Paper>
         <Chart data={dataPerTarget}>
           <ArgumentAxis />
@@ -46,7 +54,17 @@ const ChartCom = () => {
           <BarSeries valueField="value" argumentField="argument" />
         </Chart>
       </Paper>
-      <Paper sx={{mt:3,mb:5}}>
+      <Typography
+        fontFamily="'Questrial', sans-serif"
+        color="#464d29"
+        variant="h1"
+        fontSize={{ xs: 30, xl: 45, md: 40, xxl: 50 }}
+        textAlign="center"
+        mt={3}
+      >
+        All vacations
+      </Typography>
+      <Paper sx={{ mt: 3, mb: 8 }}>
         <Chart data={dataPerId}>
           <ArgumentAxis />
           <ValueAxis />

@@ -25,7 +25,7 @@ const VacationItem = (props) => {
             <UpdateVacation userId={props.userId} vacationId={props.id} />
           )}
           {props.price === props.minPay * props.days &&
-            props.price !== props.calc && (
+            (
               <Typography
                 right={15}
                 fontSize="1.2rem"
