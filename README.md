@@ -1,23 +1,24 @@
-## TulaFly 
+# TulaFly 
 
 TulaFly Vacation app written in mern technologies - ReactJS nodeJS Express MongoDB using Socket.IO
 
 The app allows the user to be impressed by the vacations on the site, register or log in, follow requested vacations, and receive the most affordable / cheapest price to add to the cart and purchase.
 The admin has a dashboard where he sees graphs and tables on the vacation data and users, with the ability to add/delete/update vacations, and the user will receive the change in real-time.
 
-## installation
+# installation
 It is necessary to download the existing libraries in the project to run.
 Open the terminal in TulaFly/back & TulaFly/front folders and run (once in front, once in back)
 ``` npm i ``` 
-## running
+# running
 Open the terminal in TulaFly / back & TulaFly / front folders and run  command (once in front, once in back)
 ``` npm start ```
 
-## Technologies and libraries:
+# Technologies and libraries:
 
-# Front: 
- "react": "^ 17.0.2" - react Library
-"react-dom": "^ 17.0.2" - react virtual DOM Library
+## Front: 
+
+    "react": "^ 17.0.2" - react Library
+    "react-dom": "^ 17.0.2" - react virtual DOM Library
 
     "react-image-file-resizer": "^ 0.4.7" - Resize images to handle image uploads
 
@@ -26,7 +27,7 @@ Open the terminal in TulaFly / back & TulaFly / front folders and run  command (
     "@ mui / icons-material": "^ 5.5.0"
     "@ mui / material": "^ 5.5.0" - Overall design of the app
 
-# back:
+## back:
 
     "bcryptjs": "^2.4.3" - For password security
 
