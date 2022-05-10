@@ -53,6 +53,10 @@ Fill in the file with your server url
     "mongoose-unique-validator": "^3.0.0" - Validations on the Mongo schema
 
     "nodemon": "^2.0.15" - restarting the node application when file changes in the directory are detected.
+    
+#Demo
+https://user-images.githubusercontent.com/79919211/167675562-c5b9baa6-b6c7-44f5-9e80-087559779d9f.mp4
+
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
