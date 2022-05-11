@@ -54,9 +54,9 @@ Fill in the file with your server url
 
     "nodemon": "^2.0.15" - restarting the node application when file changes in the directory are detected.
     
-# Demo
+# Video & demo
 https://user-images.githubusercontent.com/79919211/167675562-c5b9baa6-b6c7-44f5-9e80-087559779d9f.mp4
-
+https://tula-fly.herokuapp.com/
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
